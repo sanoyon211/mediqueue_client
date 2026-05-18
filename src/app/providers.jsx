@@ -1,11 +1,13 @@
 'use client';
 
-import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { useRouter } from 'next/navigation';
 
 export function Providers({ children }) {
-  const router = useRouter();
-
-  return <HeroUIProvider navigate={router.push}>{children}</HeroUIProvider>;
+  return (
+    <NextThemesProvider attribute="class" defaultTheme="dark">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+        {children}
+      </div>
+    </NextThemesProvider>
+  );
 }
