@@ -1,11 +1,11 @@
-import { div } from "framer-motion/client";
-import Image from "next/image";
+import HeroBanner from "@/components/home/HeroBanner";
+
+
 
 export default function Home() {
   return (
-    <div>
-      <h1>MediQueue</h1>
-      <p>Welcome to the MediQueue Tutor Booking System!</p>
+    <div className="w-full" >
+      <HeroBanner />
     </div>
   );
 }

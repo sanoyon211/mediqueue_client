@@ -19,13 +19,13 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Better Auth ক্লায়েন্ট সেশন হুক
+
   const { data: session, isPending } = authClient.useSession();
 
   useEffect(() => {
     setMounted(true);
 
-    // বাইরে ক্লিক করলে প্রোফাইল ড্রপডাউন বন্ধ করার হ্যান্ডলার
+
     const handleClickOutside = event => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsProfileOpen(false);
@@ -49,7 +49,7 @@ export default function Navbar() {
 
   const isActive = path => pathname === path;
 
-  // Hydration mismatch এড়ানোর জন্য মাউন্টেড চেক
+
   if (!mounted) return null;
 
   const navLinks = [

@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { RiTwitterXFill } from 'react-icons/ri'; // ✅ New X logo
-import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa'; // ✅ standard brand icons from react-icons
+import { RiTwitterXFill } from 'react-icons/ri'; 
+import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa'; 
 
 export default function Footer() {
   return (

@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Toaster position="top-center" reverseOrder={false} />
           <Navbar />
-          {children}
+          <main className="min-h-[calc(100vh-16rem)]">{children}</main>
           <Footer />
         </Providers>
       </body>
