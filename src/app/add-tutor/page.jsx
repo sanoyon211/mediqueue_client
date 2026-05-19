@@ -60,18 +60,19 @@ export default function AddTutor() {
     }
 
     const tutorData = {
-      name: session.user.name, 
-      email: session.user.email, 
-      image: photoUrl || session.user.image,
-      subject,
-      price: Number(price),
-      language,
-      description,
-      experience: Number(experience),
+      tutorName: session.user.name, 
+      photo: photoUrl || session.user.image, 
+      subject: subject,
+      hourlyFee: Number(price), 
       totalSlot: Number(totalSlot),
-      startDate,
-      rating: 5.0, 
-      reviewCount: 0, 
+      sessionStartDate: startDate, 
+      experience: Number(experience),
+      language: language,
+      availableDays: ['Monday', 'Wednesday'], 
+      availableTime: '10:00 AM - 12:00 PM', 
+      creatorEmail: session.user.email,
+      creatorName: session.user.name,
+      creatorPhoto: session.user.image,
     };
 
     try {
