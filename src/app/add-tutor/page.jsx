@@ -19,19 +19,10 @@ import {
 export default function AddTutor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
-
   const { data: session, isPending } = authClient.useSession();
 
-
-  useEffect(() => {
-    if (!isPending && !session) {
-      toast.error('Please login to access this page!');
-      router.push('/login');
-    }
-  }, [session, isPending, router]);
-
-
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('Mathematics');
   const [price, setPrice] = useState('');
   const [language, setLanguage] = useState('English');
@@ -41,61 +32,61 @@ export default function AddTutor() {
   const [startDate, setStartDate] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
 
-
   useEffect(() => {
-    if (session?.user?.image) {
-      setPhotoUrl(session.user.image);
+    if (!isPending && !session) {
+      toast.error('Please login to access this page!');
+      router.push('/login');
+    } else if (session) {
+      setName(session.user.name || '');
+      setEmail(session.user.email || '');
+      setPhotoUrl(
+        session.user.image ||
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde',
+      );
     }
-  }, [session]);
+  }, [session, isPending, router]);
 
   const handleSubmit = async e => {
     e.preventDefault();
-
-    if (!session) {
-      return toast.error('Session expired. Please login again!');
-    }
 
     if (!price || !description || !experience || !totalSlot || !startDate) {
       return toast.error('Please fill in all fields!');
     }
 
     const tutorData = {
-      tutorName: session.user.name, 
-      photo: photoUrl || session.user.image, 
-      subject: subject,
-      hourlyFee: Number(price), 
+      tutorName: name || session.user.name,
+      photo: photoUrl || session.user.image,
+      subject,
+      hourlyFee: Number(price),
       totalSlot: Number(totalSlot),
-      sessionStartDate: startDate, 
+      sessionStartDate: startDate,
       experience: Number(experience),
-      language: language,
-      availableDays: ['Monday', 'Wednesday'], 
-      availableTime: '10:00 AM - 12:00 PM', 
+      language,
+      description: description,
+      availableDays: ['Saturday', 'Sunday'],
+      availableTime: '10:00 AM - 12:00 PM',
       creatorEmail: session.user.email,
       creatorName: session.user.name,
-      creatorPhoto: session.user.image,
+      creatorPhoto: session.user.image || photoUrl,
     };
 
     try {
       setLoading(true);
-
       const res = await fetch('http://localhost:5000/api/tutors', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tutorData),
       });
-
       const data = await res.json();
 
       if (res.ok && data.success) {
-        toast.success('Tutor slot registered successfully!');
+        toast.success('Tutor registered successfully!');
         router.push('/my-tutors');
       } else {
-        toast.error(data.message || 'Failed to add tutor slot.');
+        toast.error(data.message || 'Failed to add tutor');
       }
     } catch (err) {
-      toast.error('Failed to connect to the server. Is the backend running?');
+      toast.error('Error connecting to server.');
     } finally {
       setLoading(false);
     }
@@ -110,25 +101,22 @@ export default function AddTutor() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-12 px-6 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
-      <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-violet-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none" />
-
+    <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl p-8 md:p-10 shadow-xl relative z-10"
+        className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 md:p-10 shadow-xl"
       >
-        <div className="flex items-center gap-4 border-b border-zinc-200/80 dark:border-zinc-800 pb-6 mb-8">
-          <div className="p-3 rounded-2xl bg-violet-100 dark:bg-violet-950/40 text-violet-500">
+        <div className="flex items-center gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6 mb-8">
+          <div className="p-3 rounded-2xl bg-violet-100 dark:bg-violet-955 text-violet-500">
             <PlusCircle size={28} />
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
+            <h2 className="text-2xl md:text-3xl font-extrabold">
               Register as a Tutor
             </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold mt-1">
-              Add your teaching subjects, pricing, and available calendar slots.
+            <p className="text-sm text-zinc-500 font-semibold mt-1">
+              Add your tutoring slot profile details below.
             </p>
           </div>
         </div>
@@ -136,9 +124,7 @@ export default function AddTutor() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Your Name
-              </label>
+              <label className="text-sm font-bold">Your Name</label>
               <div className="relative">
                 <User
                   size={18}
@@ -146,17 +132,16 @@ export default function AddTutor() {
                 />
                 <input
                   type="text"
-                  value={session.user.name}
-                  disabled
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 text-zinc-400 cursor-not-allowed text-sm font-bold"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Your Email
-              </label>
+              <label className="text-sm font-bold">Your Email</label>
               <div className="relative">
                 <Mail
                   size={18}
@@ -164,9 +149,10 @@ export default function AddTutor() {
                 />
                 <input
                   type="email"
-                  value={session.user.email}
-                  disabled
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 text-zinc-400 cursor-not-allowed text-sm font-bold"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
                 />
               </div>
             </div>
@@ -174,9 +160,7 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Subject Category
-              </label>
+              <label className="text-sm font-bold">Subject Category</label>
               <div className="relative">
                 <BookOpen
                   size={18}
@@ -185,25 +169,20 @@ export default function AddTutor() {
                 <select
                   value={subject}
                   onChange={e => setSubject(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                 >
                   <option value="Mathematics">Mathematics</option>
                   <option value="Physics">Physics</option>
                   <option value="Chemistry">Chemistry</option>
                   <option value="Biology">Biology</option>
-                  <option value="Science">General Science</option>
                   <option value="Computer Science">Computer Science</option>
                   <option value="English">English Language</option>
-                  <option value="Spanish">Spanish Language</option>
-                  <option value="History">History</option>
                 </select>
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Price Per Hour ($)
-              </label>
+              <label className="text-sm font-bold">Price Per Hour ($)</label>
               <div className="relative">
                 <DollarSign
                   size={18}
@@ -211,11 +190,11 @@ export default function AddTutor() {
                 />
                 <input
                   type="number"
-                  placeholder="30"
                   min="1"
+                  placeholder="30"
                   value={price}
                   onChange={e => setPrice(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
@@ -224,9 +203,7 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Medium of Language
-              </label>
+              <label className="text-sm font-bold">Medium of Language</label>
               <div className="relative">
                 <Globe
                   size={18}
@@ -234,19 +211,16 @@ export default function AddTutor() {
                 />
                 <input
                   type="text"
-                  placeholder="English, Bengali, Spanish"
                   value={language}
                   onChange={e => setLanguage(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Photo URL (Pre-filled from Profile)
-              </label>
+              <label className="text-sm font-bold">Photo URL</label>
               <div className="relative">
                 <Globe
                   size={18}
@@ -254,10 +228,9 @@ export default function AddTutor() {
                 />
                 <input
                   type="url"
-                  placeholder="https://example.com/avatar.jpg"
                   value={photoUrl}
                   onChange={e => setPhotoUrl(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
@@ -266,9 +239,7 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Experience (Years)
-              </label>
+              <label className="text-sm font-bold">Experience (Years)</label>
               <div className="relative">
                 <Clock
                   size={18}
@@ -276,20 +247,18 @@ export default function AddTutor() {
                 />
                 <input
                   type="number"
-                  placeholder="5"
                   min="0"
+                  placeholder="5"
                   value={experience}
                   onChange={e => setExperience(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Total Slots Available
-              </label>
+              <label className="text-sm font-bold">Total Slots</label>
               <div className="relative">
                 <User
                   size={18}
@@ -297,20 +266,18 @@ export default function AddTutor() {
                 />
                 <input
                   type="number"
-                  placeholder="5"
                   min="1"
+                  placeholder="5"
                   value={totalSlot}
                   onChange={e => setTotalSlot(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-                Class Start Date
-              </label>
+              <label className="text-sm font-bold">Class Start Date</label>
               <div className="relative">
                 <Calendar
                   size={18}
@@ -320,7 +287,7 @@ export default function AddTutor() {
                   type="date"
                   value={startDate}
                   onChange={e => setStartDate(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
               </div>
@@ -328,35 +295,30 @@ export default function AddTutor() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-              Detailed Description / Bio
-            </label>
+            <label className="text-sm font-bold">Description / Bio</label>
             <textarea
               rows="4"
-              placeholder="Describe your qualifications, teaching methodology, syllabus coverage, and slot details..."
               value={description}
               onChange={e => setDescription(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+              className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
               required
             />
           </div>
 
-          <div className="pt-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-violet-500/20 hover:shadow-violet-500/35 transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
-            >
-              {loading ? (
-                <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
-              ) : (
-                <>
-                  <span>Submit Registration</span>
-                  <PlusCircle size={18} />
-                </>
-              )}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white animate-spin border-t-transparent rounded-full" />
+            ) : (
+              <>
+                <span>Submit Registration</span>
+                <PlusCircle size={18} />
+              </>
+            )}
+          </button>
         </form>
       </motion.div>
     </div>

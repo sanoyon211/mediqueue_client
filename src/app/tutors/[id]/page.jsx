@@ -17,6 +17,27 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
+const getTutorImage = (photo, image) => {
+  const url = photo || image;
+  if (!url || typeof url !== 'string') {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80';
+  }
+  const lower = url.toLowerCase().trim();
+
+  if (
+    lower.startsWith('http') &&
+    (lower.endsWith('/') ||
+      lower.endsWith('.com') ||
+      lower.endsWith('.tv') ||
+      lower.endsWith('.org') ||
+      lower.endsWith('.net'))
+  ) {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80';
+  }
+  return url;
+};
+
 export default function TutorDetails() {
   const params = useParams();
   const router = useRouter();
@@ -27,6 +48,30 @@ export default function TutorDetails() {
   const [bookingLoading, setBookingLoading] = useState(false);
 
   const { data: session } = authClient.useSession();
+
+  const getJWTToken = async email => {
+    try {
+      let token = localStorage.getItem('jwt_token');
+      let cachedEmail = localStorage.getItem('jwt_email');
+      if (!token || cachedEmail !== email) {
+        const res = await fetch('http://localhost:5000/api/jwt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          token = data.token;
+          localStorage.setItem('jwt_token', token);
+          localStorage.setItem('jwt_email', email);
+        }
+      }
+      return token;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  };
 
   useEffect(() => {
     if (params.id) {
@@ -40,7 +85,7 @@ export default function TutorDetails() {
       const data = await res.json();
       if (res.ok && data.success) {
         setTutor(data.data);
-        document.title = `${data.data.name} - Tutor Details`;
+        document.title = `${data.data.tutorName} - Tutor Details`;
       } else {
         toast.error('Tutor details not found');
       }
@@ -57,13 +102,11 @@ export default function TutorDetails() {
       return router.push('/login');
     }
 
-    // Check Slot restriction
     if (tutor.totalSlot <= 0) {
       return toast.error('This tutor has no slots available!');
     }
 
-    // Check Start Date restriction: Session date cannot be in the past compared to today
-    const sessionStartDate = new Date(tutor.startDate);
+    const sessionStartDate = new Date(tutor.sessionStartDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -82,12 +125,15 @@ export default function TutorDetails() {
 
     try {
       setBookingLoading(true);
+      const token = await getJWTToken(session.user.email);
+
       const bookingData = {
         tutorId: tutor._id,
-        tutorName: tutor.name,
+        tutorName: tutor.tutorName,
         subject: tutor.subject,
-        price: tutor.price,
-        image: tutor.image,
+        price: tutor.hourlyFee,
+        image: tutor.photo,
+        phone: '01712-345678',
         bookingDate,
         studentEmail: session.user.email,
         studentName: session.user.name,
@@ -95,7 +141,10 @@ export default function TutorDetails() {
 
       const res = await fetch('http://localhost:5000/api/bookings', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(bookingData),
       });
       const data = await res.json();
@@ -103,7 +152,7 @@ export default function TutorDetails() {
       if (res.ok && data.success) {
         toast.success('Tutor session booked successfully!');
         setIsModalOpen(false);
-        fetchTutorDetails(); // Refresh details to show updated slots count
+        fetchTutorDetails();
         router.push('/my-bookings');
       } else {
         toast.error(data.message || 'Failed to book session');
@@ -141,7 +190,6 @@ export default function TutorDetails() {
   return (
     <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <div className="max-w-4xl mx-auto space-y-8">
-
         <button
           onClick={() => router.back()}
           className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
@@ -150,33 +198,27 @@ export default function TutorDetails() {
           <span>Back to Tutors list</span>
         </button>
 
-
         <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 md:p-10 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8">
-
           <div className="flex flex-col items-center justify-center text-center space-y-4">
             <img
-              src={
-                tutor.image ||
-                'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'
-              }
-              alt={tutor.name}
+              src={getTutorImage(tutor.photo, tutor.image)}
+              alt={tutor.tutorName}
               className="w-36 h-36 rounded-full object-cover border-4 border-violet-500/20 shadow-md"
             />
             <div>
               <h2 className="text-2xl font-extrabold text-zinc-800 dark:text-zinc-100">
-                {tutor.name}
+                {tutor.tutorName}
               </h2>
               <p className="text-sm font-semibold text-zinc-500 mt-1">
-                {tutor.email}
+                {tutor.creatorEmail}
               </p>
             </div>
           </div>
 
-
           <div className="md:col-span-2 space-y-6 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400">
+                <span className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-955 text-violet-650">
                   {tutor.subject}
                 </span>
                 <span className="flex items-center gap-1 text-xs font-extrabold text-zinc-500">
@@ -193,7 +235,6 @@ export default function TutorDetails() {
               </p>
             </div>
 
-
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-zinc-100 dark:border-zinc-800 pt-6">
               <div className="flex items-center gap-2">
                 <DollarSign className="text-emerald-500 w-5 h-5" />
@@ -202,7 +243,7 @@ export default function TutorDetails() {
                     Price Rate
                   </p>
                   <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
-                    ${tutor.price}/hour
+                    ${tutor.hourlyFee}/hour
                   </p>
                 </div>
               </div>
@@ -214,7 +255,7 @@ export default function TutorDetails() {
                     Language
                   </p>
                   <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
-                    {tutor.language}
+                    {tutor.language || 'English'}
                   </p>
                 </div>
               </div>
@@ -234,13 +275,13 @@ export default function TutorDetails() {
           </div>
         </div>
 
-
         <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2 text-zinc-700 dark:text-zinc-300 font-bold">
               <Calendar size={18} className="text-violet-500" />
               <span>
-                Available Date: {new Date(tutor.startDate).toLocaleDateString()}
+                Available Date:{' '}
+                {new Date(tutor.sessionStartDate).toLocaleDateString()}
               </span>
             </div>
             <div className="text-sm">
@@ -261,7 +302,7 @@ export default function TutorDetails() {
             disabled={tutor.totalSlot <= 0}
             className={`px-8 py-3.5 rounded-xl font-extrabold text-sm transition-all duration-300 ${
               tutor.totalSlot > 0
-                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/35 hover:-translate-y-0.5'
+                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg'
                 : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
             }`}
           >
@@ -269,7 +310,6 @@ export default function TutorDetails() {
           </button>
         </div>
       </div>
-
 
       <AnimatePresence>
         {isModalOpen && (
@@ -293,19 +333,17 @@ export default function TutorDetails() {
               </h3>
 
               <form onSubmit={handleConfirmBooking} className="space-y-4">
-
                 <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl space-y-1">
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Booking with
                   </p>
                   <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
-                    {tutor.name}
+                    {tutor.tutorName}
                   </p>
                   <p className="text-xs font-semibold text-violet-500">
-                    {tutor.subject} ({tutor.language})
+                    {tutor.subject} ({tutor.language || 'English'})
                   </p>
                 </div>
-
 
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-zinc-500 uppercase">
@@ -313,22 +351,21 @@ export default function TutorDetails() {
                   </label>
                   <input
                     type="date"
-                    min={tutor.startDate} 
+                    min={tutor.sessionStartDate}
                     value={bookingDate}
                     onChange={e => setBookingDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-955/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
                     required
                   />
                 </div>
 
-    
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <p className="text-xs text-zinc-400 font-bold uppercase">
                       Student Name
                     </p>
                     <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
-                      {session.user.name}
+                      {session?.user?.name}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -336,32 +373,30 @@ export default function TutorDetails() {
                       Student Email
                     </p>
                     <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
-                      {session.user.email}
+                      {session?.user?.email}
                     </p>
                   </div>
                 </div>
 
-
                 <div className="flex justify-between items-center border-t border-zinc-100 dark:border-zinc-800 pt-4 text-sm font-extrabold">
                   <span className="text-zinc-500">Hourly Rate:</span>
                   <span className="text-zinc-800 dark:text-zinc-200">
-                    ${tutor.price} / hr
+                    ${tutor.hourlyFee} / hr
                   </span>
                 </div>
-
 
                 <div className="flex gap-3 pt-4">
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all"
+                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={bookingLoading}
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-violet-500/25 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2"
                   >
                     {bookingLoading ? (
                       <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

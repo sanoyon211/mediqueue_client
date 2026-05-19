@@ -7,17 +7,61 @@ import toast from 'react-hot-toast';
 import { Calendar, Trash2, ShieldAlert, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
+const getTutorImage = (photo, image) => {
+  const url = photo || image;
+  if (!url || typeof url !== 'string') {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  const lower = url.toLowerCase().trim();
+
+  if (
+    lower.startsWith('http') &&
+    (lower.endsWith('/') ||
+      lower.endsWith('.com') ||
+      lower.endsWith('.tv') ||
+      lower.endsWith('.org') ||
+      lower.endsWith('.net'))
+  ) {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  return url;
+};
+
 export default function MyBookings() {
   const router = useRouter();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Cancellation Modal States
   const [isCancelOpen, setIsCancelOpen] = useState(false);
   const [bookingToCancel, setBookingToCancel] = useState(null);
   const [cancelLoading, setCancelLoading] = useState(false);
 
   const { data: session, isPending } = authClient.useSession();
+
+  const getJWTToken = async email => {
+    try {
+      let token = localStorage.getItem('jwt_token');
+      let cachedEmail = localStorage.getItem('jwt_email');
+      if (!token || cachedEmail !== email) {
+        const res = await fetch('http://localhost:5000/api/jwt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          token = data.token;
+          localStorage.setItem('jwt_token', token);
+          localStorage.setItem('jwt_email', email);
+        }
+      }
+      return token;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  };
 
   useEffect(() => {
     document.title = 'My Bookings - MediQueue';
@@ -32,9 +76,15 @@ export default function MyBookings() {
   const fetchMyBookings = async () => {
     try {
       setLoading(true);
-      // Fetch only bookings for the logged-in student's email
+      const token = await getJWTToken(session.user.email);
+
       const res = await fetch(
-        `http://localhost:5000/api/bookings?email=${session.user.email}`,
+        `http://localhost:5000/api/bookings/my-bookings?email=${session.user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       const data = await res.json();
       if (res.ok && data.success) {
@@ -58,11 +108,15 @@ export default function MyBookings() {
   const handleCancelBooking = async () => {
     try {
       setCancelLoading(true);
+      const token = await getJWTToken(session.user.email);
 
       const res = await fetch(
         `http://localhost:5000/api/bookings/${bookingToCancel}/cancel`,
         {
           method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
       const data = await res.json();
@@ -73,7 +127,7 @@ export default function MyBookings() {
 
         setBookings(
           bookings.map(b =>
-            b._id === bookingToCancel ? { ...b, status: 'cancelled' } : b,
+            b._id === bookingToCancel ? { ...b, bookStatus: 'cancelled' } : b,
           ),
         );
       } else {
@@ -97,7 +151,6 @@ export default function MyBookings() {
   return (
     <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-8">
-
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
             My Booked Sessions
@@ -107,7 +160,6 @@ export default function MyBookings() {
           </p>
         </div>
 
-      
         {bookings.length === 0 ? (
           <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4 bg-white dark:bg-zinc-900">
             <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-950/40 text-violet-500">
@@ -140,7 +192,7 @@ export default function MyBookings() {
                   >
                     <td className="py-4 px-6 flex items-center gap-3">
                       <img
-                        src={b.image}
+                        src={getTutorImage(b.tutorPhoto, b.image)}
                         alt={b.tutorName}
                         className="w-9 h-9 rounded-full object-cover border border-violet-500/20"
                       />
@@ -149,29 +201,32 @@ export default function MyBookings() {
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 text-xs font-bold">
+                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-955 text-violet-650">
                         {b.subject}
                       </span>
                     </td>
                     <td className="py-4 px-6 text-zinc-500">
-                      {new Date(b.bookingDate).toLocaleDateString()}
+                      
+                      {new Date(
+                        b.bookingDate || b.bookedAt,
+                      ).toLocaleDateString()}
                     </td>
                     <td className="py-4 px-6 text-zinc-900 dark:text-zinc-100 font-bold">
-                      ${b.price}
+                      ${b.hourlyFee}
                     </td>
                     <td className="py-4 px-6 text-center">
                       <span
                         className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${
-                          b.status === 'cancelled'
+                          b.bookStatus === 'cancelled'
                             ? 'bg-red-100 dark:bg-red-950/40 text-red-500'
                             : 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
                         }`}
                       >
-                        {b.status || 'active'}
+                        {b.bookStatus || 'booked'}
                       </span>
                     </td>
                     <td className="py-4 px-6 text-center">
-                      {b.status !== 'cancelled' ? (
+                      {b.bookStatus !== 'cancelled' ? (
                         <button
                           onClick={() => openCancelModal(b._id)}
                           className="px-3.5 py-1.5 font-bold text-xs bg-red-550/10 hover:bg-red-600 hover:text-white border border-red-550/10 text-red-600 dark:text-red-400 transition-all rounded-lg"
@@ -191,7 +246,6 @@ export default function MyBookings() {
           </div>
         )}
       </div>
-
 
       <AnimatePresence>
         {isCancelOpen && (
@@ -223,14 +277,14 @@ export default function MyBookings() {
                 <button
                   type="button"
                   onClick={() => setIsCancelOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all"
+                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
                 >
                   No, Keep it
                 </button>
                 <button
                   onClick={handleCancelBooking}
                   disabled={cancelLoading}
-                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-505 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
                 >
                   {cancelLoading ? (
                     <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

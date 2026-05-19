@@ -16,12 +16,32 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
+const getTutorImage = (photo, image) => {
+  const url = photo || image;
+  if (!url || typeof url !== 'string') {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  const lower = url.toLowerCase().trim();
+
+  if (
+    lower.startsWith('http') &&
+    (lower.endsWith('/') ||
+      lower.endsWith('.com') ||
+      lower.endsWith('.tv') ||
+      lower.endsWith('.org') ||
+      lower.endsWith('.net'))
+  ) {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  return url;
+};
+
 export default function MyTutors() {
   const router = useRouter();
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Modal States
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [selectedTutor, setSelectedTutor] = useState(null);
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -29,7 +49,6 @@ export default function MyTutors() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [tutorToDelete, setTutorToDelete] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
-
 
   const [subject, setSubject] = useState('');
   const [price, setPrice] = useState('');
@@ -40,6 +59,30 @@ export default function MyTutors() {
   const [description, setDescription] = useState('');
 
   const { data: session, isPending } = authClient.useSession();
+
+  const getJWTToken = async email => {
+    try {
+      let token = localStorage.getItem('jwt_token');
+      let cachedEmail = localStorage.getItem('jwt_email');
+      if (!token || cachedEmail !== email) {
+        const res = await fetch('http://localhost:5000/api/jwt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          token = data.token;
+          localStorage.setItem('jwt_token', token);
+          localStorage.setItem('jwt_email', email);
+        }
+      }
+      return token;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  };
 
   useEffect(() => {
     document.title = 'My Registered Tutors - MediQueue';
@@ -54,9 +97,15 @@ export default function MyTutors() {
   const fetchMyTutors = async () => {
     try {
       setLoading(true);
+      const token = await getJWTToken(session.user.email);
 
       const res = await fetch(
-        `http://localhost:5000/api/tutors?email=${session.user.email}`,
+        `http://localhost:5000/api/tutors/my-tutors?email=${session.user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
       const data = await res.json();
       if (res.ok && data.success) {
@@ -72,31 +121,35 @@ export default function MyTutors() {
     }
   };
 
-  // Open Update Modal and fill values
   const openUpdateModal = tutor => {
     setSelectedTutor(tutor);
     setSubject(tutor.subject);
-    setPrice(tutor.price);
-    setLanguage(tutor.language);
+    setPrice(tutor.hourlyFee);
+    setLanguage(tutor.language || '');
     setExperience(tutor.experience);
     setTotalSlot(tutor.totalSlot);
-    setStartDate(tutor.startDate.substring(0, 10)); // YYYY-MM-DD
+    setStartDate(
+      tutor.sessionStartDate ? tutor.sessionStartDate.substring(0, 10) : '',
+    );
     setDescription(tutor.description);
     setIsUpdateOpen(true);
   };
 
-  // Trigger Update call without reloading
   const handleUpdate = async e => {
     e.preventDefault();
     try {
       setUpdateLoading(true);
+      const token = await getJWTToken(session.user.email);
+
       const updateData = {
+        tutorName: selectedTutor.tutorName,
+        photo: selectedTutor.photo,
         subject,
-        price: Number(price),
+        hourlyFee: Number(price),
         language,
         experience: Number(experience),
         totalSlot: Number(totalSlot),
-        startDate,
+        sessionStartDate: startDate,
         description,
       };
 
@@ -104,7 +157,10 @@ export default function MyTutors() {
         `http://localhost:5000/api/tutors/${selectedTutor._id}`,
         {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(updateData),
         },
       );
@@ -113,12 +169,7 @@ export default function MyTutors() {
       if (res.ok && data.success) {
         toast.success('Tutor updated successfully!');
         setIsUpdateOpen(false);
-
-        setTutors(
-          tutors.map(t =>
-            t._id === selectedTutor._id ? { ...t, ...updateData } : t,
-          ),
-        );
+        fetchMyTutors();
       } else {
         toast.error(data.message || 'Failed to update tutor details');
       }
@@ -137,10 +188,15 @@ export default function MyTutors() {
   const handleDelete = async () => {
     try {
       setDeleteLoading(true);
+      const token = await getJWTToken(session.user.email);
+
       const res = await fetch(
         `http://localhost:5000/api/tutors/${tutorToDelete}`,
         {
           method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
       const data = await res.json();
@@ -148,7 +204,6 @@ export default function MyTutors() {
       if (res.ok && data.success) {
         toast.success('Tutor deleted successfully!');
         setIsDeleteOpen(false);
-
         setTutors(tutors.filter(t => t._id !== tutorToDelete));
       } else {
         toast.error(data.message || 'Failed to delete tutor');
@@ -171,7 +226,6 @@ export default function MyTutors() {
   return (
     <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-8">
-
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
@@ -183,10 +237,9 @@ export default function MyTutors() {
           </div>
         </div>
 
-
         {tutors.length === 0 ? (
           <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4 bg-white dark:bg-zinc-900">
-            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-950/40 text-violet-500">
+            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-955 text-violet-500">
               <BookOpen size={32} />
             </div>
             <h3 className="text-xl font-bold">No Tutors Registered</h3>
@@ -217,22 +270,22 @@ export default function MyTutors() {
                   >
                     <td className="py-4 px-6 flex items-center gap-3">
                       <img
-                        src={t.image}
-                        alt={t.name}
+                        src={getTutorImage(t.photo, t.image)}
+                        alt={t.tutorName}
                         className="w-9 h-9 rounded-full object-cover border border-violet-500/20"
                       />
                       <span className="text-zinc-900 dark:text-zinc-100 font-bold">
-                        {t.name}
+                        {t.tutorName}
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 text-xs font-bold">
+                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-955 text-violet-500">
                         {t.subject}
                       </span>
                     </td>
-                    <td className="py-4 px-6">{t.language}</td>
+                    <td className="py-4 px-6">{t.language || 'English'}</td>
                     <td className="py-4 px-6 text-zinc-900 dark:text-zinc-100 font-bold">
-                      ${t.price}/hr
+                      ${t.hourlyFee}/hr
                     </td>
                     <td className="py-4 px-6">
                       <span
@@ -246,12 +299,12 @@ export default function MyTutors() {
                       </span>
                     </td>
                     <td className="py-4 px-6 text-xs text-zinc-500">
-                      {new Date(t.startDate).toLocaleDateString()}
+                      {new Date(t.sessionStartDate).toLocaleDateString()}
                     </td>
                     <td className="py-4 px-6 text-center flex items-center justify-center gap-2">
                       <button
                         onClick={() => openUpdateModal(t)}
-                        className="p-2 rounded-lg text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/30 transition-colors"
+                        className="p-2 rounded-lg text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-955 transition-colors"
                         title="Edit Details"
                       >
                         <Edit2 size={16} />
@@ -272,7 +325,6 @@ export default function MyTutors() {
         )}
       </div>
 
-      {/* 🎯 Update Details Modal */}
       <AnimatePresence>
         {isUpdateOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
@@ -425,7 +477,6 @@ export default function MyTutors() {
         )}
       </AnimatePresence>
 
-      {/* 🎯 Custom Delete Confirmation Modal */}
       <AnimatePresence>
         {isDeleteOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
@@ -456,14 +507,14 @@ export default function MyTutors() {
                 <button
                   type="button"
                   onClick={() => setIsDeleteOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all"
+                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDelete}
                   disabled={deleteLoading}
-                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg transition-all flex items-center justify-center gap-2"
                 >
                   {deleteLoading ? (
                     <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

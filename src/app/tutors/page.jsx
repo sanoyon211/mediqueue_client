@@ -13,6 +13,26 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const getTutorImage = (photo, image) => {
+  const url = photo || image;
+  if (!url || typeof url !== 'string') {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  const lower = url.toLowerCase().trim();
+
+  if (
+    lower.startsWith('http') &&
+    (lower.endsWith('/') ||
+      lower.endsWith('.com') ||
+      lower.endsWith('.tv') ||
+      lower.endsWith('.org') ||
+      lower.endsWith('.net'))
+  ) {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80';
+  }
+  return url;
+};
+
 export default function TutorsPage() {
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -140,7 +160,7 @@ export default function TutorsPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-2"
+              className="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-2"
             >
               <RotateCcw size={16} />
               <span>Reset</span>
@@ -199,16 +219,13 @@ export default function TutorsPage() {
                 <div className="p-6 flex-grow space-y-5">
                   <div className="flex gap-4 items-center">
                     <img
-                      src={
-                        tutor.image ||
-                        'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80'
-                      }
-                      alt={tutor.name}
+                      src={getTutorImage(tutor.photo, tutor.image)}
+                      alt={tutor.tutorName || tutor.name}
                       className="w-16 h-16 rounded-full object-cover border-2 border-violet-500/20"
                     />
                     <div>
                       <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-100 line-clamp-1">
-                        {tutor.name}
+                        {tutor.tutorName || tutor.name}
                       </h3>
                       <div className="flex items-center gap-1 mt-1">
                         <Star
@@ -223,12 +240,15 @@ export default function TutorsPage() {
                   </div>
 
                   <div className="flex justify-between items-center pt-2">
-                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400">
+                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-955 text-violet-600 dark:text-violet-400">
                       {tutor.subject}
                     </span>
                     <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
                       <DollarSign size={16} className="text-emerald-500" />
-                      <span className="text-base">{tutor.price}</span>/hr
+                      <span className="text-base">
+                        {tutor.hourlyFee || tutor.price}
+                      </span>
+                      /hr
                     </span>
                   </div>
 
