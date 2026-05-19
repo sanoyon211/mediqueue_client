@@ -2,9 +2,15 @@ import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import clientPromise from './db';
 
-// Better Auth configuration with MongoDB adapter and Google social login provider
+
+const client = await clientPromise;
+const db = client.db(); 
+
+
 export const auth = betterAuth({
-  database: mongodbAdapter(await clientPromise),
+  database: mongodbAdapter(db, {
+    client, 
+  }),
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
