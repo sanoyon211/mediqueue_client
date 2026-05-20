@@ -6,9 +6,15 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { authClient } from '@/lib/auth-client';
 import { Sun, Moon, LogOut, User, Menu, X, ChevronDown } from 'lucide-react';
-import { Avatar } from '@heroui/react'; 
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const getUserImage = (image, name) => {
+  if (image && typeof image === 'string' && image.startsWith('http')) {
+    return image;
+  }
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=8B5CF6&color=fff&bold=true`;
+};
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -117,12 +123,10 @@ export default function Navbar() {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-1 focus:outline-none"
               >
-                <Avatar
-                  isBordered
-                  className="w-8 h-8 border-violet-500 transition-transform cursor-pointer"
-                  color="secondary"
-                  name={session.user.name}
-                  src={session.user.image}
+                <img
+                  src={getUserImage(session.user.image, session.user.name)}
+                  alt={session.user.name || 'User'}
+                  className="w-8 h-8 rounded-full object-cover border-2 border-violet-500 transition-transform cursor-pointer hover:scale-105"
                 />
                 <ChevronDown size={14} className="text-zinc-500" />
               </button>

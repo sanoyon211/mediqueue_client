@@ -101,7 +101,7 @@ export default function TutorDetails() {
   const handleOpenBookingModal = () => {
     if (!session) {
       toast.error('Please login to book a session!');
-      return router.push('/login');
+      return router.push(`/login?callbackURL=${encodeURIComponent(window.location.pathname)}`);
     }
 
     if (tutor.totalSlot <= 0) {

@@ -35,7 +35,7 @@ export default function AddTutor() {
   useEffect(() => {
     if (!isPending && !session) {
       toast.error('Please login to access this page!');
-      router.push('/login');
+      router.push(`/login?callbackURL=${encodeURIComponent(window.location.pathname)}`);
     } else if (session) {
       setName(session.user.name || '');
       setEmail(session.user.email || '');

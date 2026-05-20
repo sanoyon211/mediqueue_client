@@ -68,7 +68,7 @@ export default function MyBookings() {
     document.title = 'My Bookings - MediQueue';
     if (!isPending && !session) {
       toast.error('Please login to view your booked sessions!');
-      router.push('/login');
+      router.push(`/login?callbackURL=${encodeURIComponent(window.location.pathname)}`);
     } else if (session) {
       fetchMyBookings();
     }

@@ -89,7 +89,7 @@ export default function MyTutors() {
     document.title = 'My Registered Tutors - MediQueue';
     if (!isPending && !session) {
       toast.error('Please login to view your tutors!');
-      router.push('/login');
+      router.push(`/login?callbackURL=${encodeURIComponent(window.location.pathname)}`);
     } else if (session) {
       fetchMyTutors();
     }
