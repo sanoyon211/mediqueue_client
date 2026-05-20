@@ -99,7 +99,7 @@ function LoginContent() {
         className="w-full max-w-md rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-8 shadow-xl relative z-10"
       >
         <div className="text-center space-y-2 mb-8">
-          <div className="inline-flex p-3 rounded-2xl bg-violet-100 dark:bg-violet-955 text-violet-500 mb-2">
+          <div className="inline-flex p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500 mb-2">
             <Sparkles size={24} />
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-955 dark:text-zinc-50">

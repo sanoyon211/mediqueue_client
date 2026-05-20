@@ -204,7 +204,7 @@ export default function MyBookings() {
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-955 text-violet-650">
+                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
                         {b.subject}
                       </span>
                     </td>
@@ -232,7 +232,7 @@ export default function MyBookings() {
                       {b.bookStatus !== 'cancelled' ? (
                         <button
                           onClick={() => openCancelModal(b._id)}
-                          className="px-3.5 py-1.5 font-bold text-xs bg-red-550/10 hover:bg-red-600 hover:text-white border border-red-550/10 text-red-600 dark:text-red-400 transition-all rounded-lg"
+                          className="px-3.5 py-1.5 font-bold text-xs bg-red-500/10 hover:bg-red-600 hover:text-white border border-red-500/10 text-red-600 dark:text-red-400 transition-all rounded-lg"
                         >
                           Cancel Booking
                         </button>
@@ -287,7 +287,7 @@ export default function MyBookings() {
                 <button
                   onClick={handleCancelBooking}
                   disabled={cancelLoading}
-                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-505 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
                 >
                   {cancelLoading ? (
                     <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

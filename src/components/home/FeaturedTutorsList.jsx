@@ -48,7 +48,7 @@ export default async function FeaturedTutorsList() {
   if (tutors.length === 0) {
     return (
       <div className="text-center py-16 px-6 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-xl mx-auto space-y-4 mb-10 md:mb-20">
-        <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-955 text-violet-500">
+        <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-500">
           <UserCheck size={32} />
         </div>
         <h3 className="text-xl font-bold text-zinc-800 dark:text-zinc-100">
@@ -96,7 +96,7 @@ export default async function FeaturedTutorsList() {
 
 
               <div className="flex justify-between items-center pt-2">
-                <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-955 text-violet-650">
+                <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
                   {tutor.subject}
                 </span>
                 <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
@@ -131,7 +131,7 @@ export default async function FeaturedTutorsList() {
 
               <Link
                 href={`/tutors/${tutor._id}`}
-                className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-50 hover:text-white transition-all duration-300 rounded-lg"
+                className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-lg"
               >
                 View Details
               </Link>

@@ -109,7 +109,7 @@ export default function AddTutor() {
         className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 md:p-10 shadow-xl"
       >
         <div className="flex items-center gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6 mb-8">
-          <div className="p-3 rounded-2xl bg-violet-100 dark:bg-violet-955 text-violet-500">
+          <div className="p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500">
             <PlusCircle size={28} />
           </div>
           <div>

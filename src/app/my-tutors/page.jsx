@@ -243,7 +243,7 @@ export default function MyTutors() {
 
         {tutors.length === 0 ? (
           <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4 bg-white dark:bg-zinc-900">
-            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-955 text-violet-500">
+            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-500">
               <BookOpen size={32} />
             </div>
             <h3 className="text-xl font-bold">No Tutors Registered</h3>
@@ -283,7 +283,7 @@ export default function MyTutors() {
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-955 text-violet-500">
+                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-500">
                         {t.subject}
                       </span>
                     </td>
@@ -308,14 +308,14 @@ export default function MyTutors() {
                     <td className="py-4 px-6 text-center flex items-center justify-center gap-2">
                       <button
                         onClick={() => openUpdateModal(t)}
-                        className="p-2 rounded-lg text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-955 transition-colors"
+                        className="p-2 rounded-lg text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900 transition-colors"
                         title="Edit Details"
                       >
                         <Edit2 size={16} />
                       </button>
                       <button
                         onClick={() => openDeleteModal(t._id)}
-                        className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-550/10 transition-colors"
+                        className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-500/10 transition-colors"
                         title="Delete Slot"
                       >
                         <Trash2 size={16} />
@@ -511,7 +511,7 @@ export default function MyTutors() {
                 <button
                   type="button"
                   onClick={() => setIsDeleteOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
+                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>

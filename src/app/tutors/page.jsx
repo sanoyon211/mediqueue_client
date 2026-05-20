@@ -161,7 +161,7 @@ export default function TutorsPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-2"
+              className="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-2"
             >
               <RotateCcw size={16} />
               <span>Reset</span>
@@ -241,7 +241,7 @@ export default function TutorsPage() {
                   </div>
 
                   <div className="flex justify-between items-center pt-2">
-                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-955 text-violet-600 dark:text-violet-400">
+                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
                       {tutor.subject}
                     </span>
                     <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
@@ -275,7 +275,7 @@ export default function TutorsPage() {
 
                   <Link
                     href={`/tutors/${tutor._id}`}
-                    className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-50 hover:text-white transition-all duration-300 rounded-lg"
+                    className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-lg"
                   >
                     View Details
                   </Link>

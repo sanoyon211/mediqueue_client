@@ -221,7 +221,7 @@ export default function TutorDetails() {
           <div className="md:col-span-2 space-y-6 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-955 text-violet-650">
+                <span className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
                   {tutor.subject}
                 </span>
                 <span className="flex items-center gap-1 text-xs font-extrabold text-zinc-500">
@@ -357,7 +357,7 @@ export default function TutorDetails() {
                     min={tutor.sessionStartDate}
                     value={bookingDate}
                     onChange={e => setBookingDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-955/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
                     required
                   />
                 </div>
@@ -392,7 +392,7 @@ export default function TutorDetails() {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
+                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
