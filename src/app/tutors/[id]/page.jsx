@@ -54,7 +54,8 @@ export default function TutorDetails() {
       let token = localStorage.getItem('jwt_token');
       let cachedEmail = localStorage.getItem('jwt_email');
       if (!token || cachedEmail !== email) {
-        const res = await fetch('http://localhost:5000/api/jwt', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -81,7 +82,8 @@ export default function TutorDetails() {
 
   const fetchTutorDetails = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/tutors/${params.id}`);
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/tutors/${params.id}`);
       const data = await res.json();
       if (res.ok && data.success) {
         setTutor(data.data);
@@ -139,7 +141,8 @@ export default function TutorDetails() {
         studentName: session.user.name,
       };
 
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

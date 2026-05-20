@@ -49,7 +49,8 @@ export default function TutorsPage() {
     try {
       setLoading(true);
 
-      let url = `http://localhost:5000/api/tutors?search=${encodeURIComponent(searchVal)}`;
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      let url = `${apiUrl}/api/tutors?search=${encodeURIComponent(searchVal)}`;
       if (start) url += `&startDate=${start}`;
       if (end) url += `&endDate=${end}`;
 

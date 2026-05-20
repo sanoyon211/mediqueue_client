@@ -65,7 +65,8 @@ export default function MyTutors() {
       let token = localStorage.getItem('jwt_token');
       let cachedEmail = localStorage.getItem('jwt_email');
       if (!token || cachedEmail !== email) {
-        const res = await fetch('http://localhost:5000/api/jwt', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -99,8 +100,9 @@ export default function MyTutors() {
       setLoading(true);
       const token = await getJWTToken(session.user.email);
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(
-        `http://localhost:5000/api/tutors/my-tutors?email=${session.user.email}`,
+        `${apiUrl}/api/tutors/my-tutors?email=${session.user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -153,8 +155,9 @@ export default function MyTutors() {
         description,
       };
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(
-        `http://localhost:5000/api/tutors/${selectedTutor._id}`,
+        `${apiUrl}/api/tutors/${selectedTutor._id}`,
         {
           method: 'PUT',
           headers: {
@@ -190,8 +193,9 @@ export default function MyTutors() {
       setDeleteLoading(true);
       const token = await getJWTToken(session.user.email);
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(
-        `http://localhost:5000/api/tutors/${tutorToDelete}`,
+        `${apiUrl}/api/tutors/${tutorToDelete}`,
         {
           method: 'DELETE',
           headers: {

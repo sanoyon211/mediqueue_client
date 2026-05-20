@@ -44,7 +44,8 @@ export default function MyBookings() {
       let token = localStorage.getItem('jwt_token');
       let cachedEmail = localStorage.getItem('jwt_email');
       if (!token || cachedEmail !== email) {
-        const res = await fetch('http://localhost:5000/api/jwt', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/jwt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
@@ -78,8 +79,9 @@ export default function MyBookings() {
       setLoading(true);
       const token = await getJWTToken(session.user.email);
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(
-        `http://localhost:5000/api/bookings/my-bookings?email=${session.user.email}`,
+        `${apiUrl}/api/bookings/my-bookings?email=${session.user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -110,8 +112,9 @@ export default function MyBookings() {
       setCancelLoading(true);
       const token = await getJWTToken(session.user.email);
 
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(
-        `http://localhost:5000/api/bookings/${bookingToCancel}/cancel`,
+        `${apiUrl}/api/bookings/${bookingToCancel}/cancel`,
         {
           method: 'PATCH',
           headers: {
