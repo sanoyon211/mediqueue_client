@@ -116,7 +116,7 @@ export default function TutorsPage() {
                 placeholder="Type name (e.g. Clara, John)..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
+                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium cursor-text"
               />
             </div>
           </div>
@@ -134,7 +134,7 @@ export default function TutorsPage() {
                 type="date"
                 value={startDate}
                 onChange={e => setStartDate(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
+                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
               />
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function TutorsPage() {
                 type="date"
                 value={endDate}
                 onChange={e => setEndDate(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
+                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
               />
             </div>
           </div>
