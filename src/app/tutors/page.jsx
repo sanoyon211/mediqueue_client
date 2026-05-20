@@ -39,6 +39,7 @@ export default function TutorsPage() {
   const [search, setSearch] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     document.title = 'Explore Tutors - MediQueue';
@@ -58,12 +59,15 @@ export default function TutorsPage() {
       const data = await res.json();
       if (res.ok && data.success) {
         setTutors(data.data);
+        setCurrentPage(1);
       } else {
         setTutors([]);
+        setCurrentPage(1);
       }
     } catch (err) {
       console.error('Failed to fetch tutors', err);
       setTutors([]);
+      setCurrentPage(1);
     } finally {
       setLoading(false);
     }
@@ -80,6 +84,12 @@ export default function TutorsPage() {
     setEndDate('');
     fetchTutors('', '', '');
   };
+
+  const itemsPerPage = 9;
+  const totalPages = Math.ceil(tutors.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentTutors = tutors.slice(startIndex, endIndex);
 
   return (
     <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
@@ -210,78 +220,102 @@ export default function TutorsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tutors.map(tutor => (
-              <motion.div
-                key={tutor._id}
-                whileHover={{ y: -4 }}
-                className="flex flex-col h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md hover:border-violet-500/30 transition-all duration-300"
-              >
-                <div className="p-6 flex-grow space-y-5">
-                  <div className="flex gap-4 items-center">
-                    <img
-                      src={getTutorImage(tutor.photo, tutor.image)}
-                      alt={tutor.tutorName || tutor.name}
-                      className="w-16 h-16 rounded-full object-cover border-2 border-violet-500/20"
-                    />
-                    <div>
-                      <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-100 line-clamp-1">
-                        {tutor.tutorName || tutor.name}
-                      </h3>
-                      <div className="flex items-center gap-1 mt-1">
-                        <Star
-                          size={14}
-                          className="fill-amber-400 text-amber-400"
-                        />
-                        <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                          {tutor.rating ? tutor.rating.toFixed(1) : '5.0'}
-                        </span>
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {currentTutors.map(tutor => (
+                <motion.div
+                  key={tutor._id}
+                  whileHover={{ y: -4 }}
+                  className="flex flex-col h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md hover:border-violet-500/30 transition-all duration-300"
+                >
+                  <div className="p-6 flex-grow space-y-5">
+                    <div className="flex gap-4 items-center">
+                      <img
+                        src={getTutorImage(tutor.photo, tutor.image)}
+                        alt={tutor.tutorName || tutor.name}
+                        className="w-16 h-16 rounded-full object-cover border-2 border-violet-500/20"
+                      />
+                      <div>
+                        <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-100 line-clamp-1">
+                          {tutor.tutorName || tutor.name}
+                        </h3>
+                        <div className="flex items-center gap-1 mt-1">
+                          <Star
+                            size={14}
+                            className="fill-amber-400 text-amber-400"
+                          />
+                          <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
+                            {tutor.rating ? tutor.rating.toFixed(1) : '5.0'}
+                          </span>
+                        </div>
                       </div>
                     </div>
+
+                    <div className="flex justify-between items-center pt-2">
+                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
+                        {tutor.subject}
+                      </span>
+                      <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                        <DollarSign size={16} className="text-emerald-500" />
+                        <span className="text-base">
+                          {tutor.hourlyFee || tutor.price}
+                        </span>
+                        /hr
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-zinc-650 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                      {tutor.description}
+                    </p>
                   </div>
 
-                  <div className="flex justify-between items-center pt-2">
-                    <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
-                      {tutor.subject}
-                    </span>
-                    <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
-                      <DollarSign size={16} className="text-emerald-500" />
-                      <span className="text-base">
-                        {tutor.hourlyFee || tutor.price}
-                      </span>
-                      /hr
-                    </span>
+                  <div className="p-6 pt-0 border-t border-zinc-100 dark:border-zinc-800 mt-auto flex items-center justify-between">
+                    <div>
+                      {tutor.totalSlot > 0 ? (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          {tutor.totalSlot} slots left
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-500">
+                          <span className="w-2 h-2 rounded-full bg-red-500" />
+                          Booked Out
+                        </span>
+                      )}
+                    </div>
+
+                    <Link
+                      href={`/tutors/${tutor._id}`}
+                      className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-lg"
+                    >
+                      View Details
+                    </Link>
                   </div>
+                </motion.div>
+              ))}
+            </div>
 
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed">
-                    {tutor.description}
-                  </p>
-                </div>
-
-                <div className="p-6 pt-0 border-t border-zinc-100 dark:border-zinc-800 mt-auto flex items-center justify-between">
-                  <div>
-                    {tutor.totalSlot > 0 ? (
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        {tutor.totalSlot} slots left
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-500">
-                        <span className="w-2 h-2 rounded-full bg-red-500" />
-                        Booked Out
-                      </span>
-                    )}
-                  </div>
-
-                  <Link
-                    href={`/tutors/${tutor._id}`}
-                    className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-lg"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-4 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer text-zinc-700 dark:text-zinc-300"
+                >
+                  Previous
+                </button>
+                <span className="text-sm font-bold text-zinc-500">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer text-zinc-700 dark:text-zinc-300"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

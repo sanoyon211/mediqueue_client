@@ -57,6 +57,11 @@ export default function MyTutors() {
   const [totalSlot, setTotalSlot] = useState('');
   const [startDate, setStartDate] = useState('');
   const [description, setDescription] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [location, setLocation] = useState('');
+  const [teachingMode, setTeachingMode] = useState('Online');
+  const [availableDays, setAvailableDays] = useState('');
+  const [availableTime, setAvailableTime] = useState('');
 
   const { data: session, isPending } = authClient.useSession();
 
@@ -134,6 +139,11 @@ export default function MyTutors() {
       tutor.sessionStartDate ? tutor.sessionStartDate.substring(0, 10) : '',
     );
     setDescription(tutor.description);
+    setInstitution(tutor.institution || '');
+    setLocation(tutor.location || '');
+    setTeachingMode(tutor.teachingMode || 'Online');
+    setAvailableDays(tutor.availableDays || '');
+    setAvailableTime(tutor.availableTime || '');
     setIsUpdateOpen(true);
   };
 
@@ -153,6 +163,11 @@ export default function MyTutors() {
         totalSlot: Number(totalSlot),
         sessionStartDate: startDate,
         description,
+        institution,
+        location,
+        teachingMode,
+        availableDays,
+        availableTime,
       };
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
@@ -436,6 +451,76 @@ export default function MyTutors() {
                       className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
                       required
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                      Available Days
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Sun - Thu"
+                      value={availableDays}
+                      onChange={e => setAvailableDays(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                      Available Time Slot
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 5:00 PM - 8:00 PM"
+                      value={availableTime}
+                      onChange={e => setAvailableTime(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                      Institution
+                    </label>
+                    <input
+                      type="text"
+                      value={institution}
+                      onChange={e => setInstitution(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      value={location}
+                      onChange={e => setLocation(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                      Teaching Mode
+                    </label>
+                    <select
+                      value={teachingMode}
+                      onChange={e => setTeachingMode(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                    >
+                      <option value="Online">Online</option>
+                      <option value="Offline">Offline</option>
+                      <option value="Both">Both</option>
+                    </select>
                   </div>
                 </div>
 

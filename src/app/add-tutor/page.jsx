@@ -31,6 +31,11 @@ export default function AddTutor() {
   const [totalSlot, setTotalSlot] = useState('');
   const [startDate, setStartDate] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [location, setLocation] = useState('');
+  const [teachingMode, setTeachingMode] = useState('Online');
+  const [availableDays, setAvailableDays] = useState('Sat, Sun');
+  const [availableTime, setAvailableTime] = useState('10:00 AM - 12:00 PM');
 
   useEffect(() => {
     if (!isPending && !session) {
@@ -49,7 +54,7 @@ export default function AddTutor() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if (!price || !description || !experience || !totalSlot || !startDate) {
+    if (!price || !description || !experience || !totalSlot || !startDate || !institution || !location || !availableDays || !availableTime) {
       return toast.error('Please fill in all fields!');
     }
 
@@ -63,8 +68,11 @@ export default function AddTutor() {
       experience: Number(experience),
       language,
       description: description,
-      availableDays: ['Saturday', 'Sunday'],
-      availableTime: '10:00 AM - 12:00 PM',
+      availableDays: availableDays,
+      availableTime: availableTime,
+      institution: institution,
+      location: location,
+      teachingMode: teachingMode,
       creatorEmail: session.user.email,
       creatorName: session.user.name,
       creatorPhoto: session.user.image || photoUrl,
@@ -291,6 +299,101 @@ export default function AddTutor() {
                   className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
                   required
                 />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold">Available Days (e.g. Sun - Thu)</label>
+              <div className="relative">
+                <Clock
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Sun - Thu"
+                  value={availableDays}
+                  onChange={e => setAvailableDays(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold">Available Time Slot (e.g. 5:00 PM - 8:00 PM)</label>
+              <div className="relative">
+                <Clock
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                />
+                <input
+                  type="text"
+                  placeholder="5:00 PM - 8:00 PM"
+                  value={availableTime}
+                  onChange={e => setAvailableTime(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold">Institution</label>
+              <div className="relative">
+                <BookOpen
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                />
+                <input
+                  type="text"
+                  placeholder="University / School"
+                  value={institution}
+                  onChange={e => setInstitution(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold">Location (Area/City)</label>
+              <div className="relative">
+                <Globe
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Dhanmondi, Dhaka"
+                  value={location}
+                  onChange={e => setLocation(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-bold">Teaching Mode</label>
+              <div className="relative">
+                <User
+                  size={18}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                />
+                <select
+                  value={teachingMode}
+                  onChange={e => setTeachingMode(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                >
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                  <option value="Both">Both</option>
+                </select>
               </div>
             </div>
           </div>

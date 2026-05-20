@@ -1,4 +1,7 @@
 # 🎓 MediQueue - Tutor Booking Platform
+
+**Live Site URL:** [https://mediqueue-booking.vercel.app](https://mediqueue-booking.vercel.app)
+
 MediQueue is a modern, premium, and fully responsive Tutor Booking Web Application built with the **MERN** stack (Next.js, Express.js, MongoDB, Node.js). It allows students to explore, filter, and book experienced tutors, while also enabling tutors to register and manage their tuition slots dynamically.
 ---
 ## 🌟 Key Features

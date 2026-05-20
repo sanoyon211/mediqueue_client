@@ -12,6 +12,7 @@ import {
   Clock,
   Globe,
   Award,
+  BookOpen,
   ShieldAlert,
   Check,
 } from 'lucide-react';
@@ -45,7 +46,15 @@ export default function TutorDetails() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookingDate, setBookingDate] = useState('');
+  const [phone, setPhone] = useState('');
   const [bookingLoading, setBookingLoading] = useState(false);
+
+  // Review states
+  const [reviews, setReviews] = useState([]);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [reviewLoading, setReviewLoading] = useState(false);
 
   const { data: session } = authClient.useSession();
 
@@ -77,6 +86,7 @@ export default function TutorDetails() {
   useEffect(() => {
     if (params.id) {
       fetchTutorDetails();
+      fetchReviews();
     }
   }, [params.id]);
 
@@ -98,6 +108,64 @@ export default function TutorDetails() {
     }
   };
 
+  const fetchReviews = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/reviews/tutor/${params.id}`);
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setReviews(data.data);
+      }
+    } catch (err) {
+      console.error('Error fetching reviews:', err);
+    }
+  };
+
+  const handleSubmitReview = async e => {
+    e.preventDefault();
+    if (!session) {
+      toast.error('Please login to leave a review!');
+      return router.push(`/login?callbackURL=${encodeURIComponent(window.location.pathname)}`);
+    }
+    if (!feedbackText.trim()) {
+      return toast.error('Please enter feedback text!');
+    }
+    try {
+      setReviewLoading(true);
+      const token = await getJWTToken(session.user.email);
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          tutorId: params.id,
+          userName: session.user.name,
+          userEmail: session.user.email,
+          rating: Number(reviewRating),
+          feedbackText,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        toast.success('Review submitted successfully!');
+        setIsReviewOpen(false);
+        setFeedbackText('');
+        setReviewRating(5);
+        fetchTutorDetails();
+        fetchReviews();
+      } else {
+        toast.error(data.message || 'Failed to submit review');
+      }
+    } catch (err) {
+      toast.error('Network error during review submission.');
+    } finally {
+      setReviewLoading(false);
+    }
+  };
+
   const handleOpenBookingModal = () => {
     if (!session) {
       toast.error('Please login to book a session!');
@@ -105,17 +173,15 @@ export default function TutorDetails() {
     }
 
     if (tutor.totalSlot <= 0) {
-      return toast.error('This tutor has no slots available!');
+      return toast.error('No available slots left.');
     }
 
     const sessionStartDate = new Date(tutor.sessionStartDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (sessionStartDate < today) {
-      return toast.error(
-        'This session date has already passed. Booking is closed.',
-      );
+    if (today < sessionStartDate) {
+      return toast.error('Booking is not available yet for this tutor');
     }
 
     setIsModalOpen(true);
@@ -124,6 +190,7 @@ export default function TutorDetails() {
   const handleConfirmBooking = async e => {
     e.preventDefault();
     if (!bookingDate) return toast.error('Please select a booking date!');
+    if (!phone) return toast.error('Please enter your phone number!');
 
     try {
       setBookingLoading(true);
@@ -135,7 +202,7 @@ export default function TutorDetails() {
         subject: tutor.subject,
         price: tutor.hourlyFee,
         image: tutor.photo,
-        phone: '01712-345678',
+        phone,
         bookingDate,
         studentEmail: session.user.email,
         studentName: session.user.name,
@@ -238,7 +305,7 @@ export default function TutorDetails() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-zinc-100 dark:border-zinc-800 pt-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 border-t border-zinc-100 dark:border-zinc-800 pt-6">
               <div className="flex items-center gap-2">
                 <DollarSign className="text-emerald-500 w-5 h-5" />
                 <div>
@@ -274,18 +341,61 @@ export default function TutorDetails() {
                   </p>
                 </div>
               </div>
+
+              <div className="flex items-center gap-2">
+                <Check className="text-violet-500 w-5 h-5" />
+                <div>
+                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                    Teaching Mode
+                  </p>
+                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                    {tutor.teachingMode || 'Online'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Globe className="text-blue-500 w-5 h-5" />
+                <div>
+                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                    Location
+                  </p>
+                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200 truncate max-w-[150px]" title={tutor.location}>
+                    {tutor.location || 'Online'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <BookOpen className="text-amber-500 w-5 h-5" />
+                <div>
+                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                    Institution
+                  </p>
+                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200 truncate max-w-[150px]" title={tutor.institution}>
+                    {tutor.institution || 'Self-Employed'}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-zinc-700 dark:text-zinc-300 font-bold">
-              <Calendar size={18} className="text-violet-500" />
-              <span>
-                Available Date:{' '}
-                {new Date(tutor.sessionStartDate).toLocaleDateString()}
-              </span>
+          <div className="space-y-3 text-center md:text-left">
+            <div className="flex flex-col gap-2 text-zinc-700 dark:text-zinc-300 font-bold">
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <Calendar size={18} className="text-violet-500" />
+                <span>
+                  Start Date: {new Date(tutor.sessionStartDate).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <Clock size={18} className="text-violet-500" />
+                <span>
+                  Schedule: {tutor.availableDays || 'Sat, Sun'} ({tutor.availableTime || '10:00 AM - 12:00 PM'})
+                </span>
+              </div>
             </div>
             <div className="text-sm">
               {tutor.totalSlot > 0 ? (
@@ -294,7 +404,7 @@ export default function TutorDetails() {
                 </span>
               ) : (
                 <span className="text-red-500 font-extrabold">
-                  No slots available. Fully Booked.
+                  This session is fully booked. You can’t join at the moment.
                 </span>
               )}
             </div>
@@ -311,6 +421,57 @@ export default function TutorDetails() {
           >
             {tutor.totalSlot > 0 ? 'Book a Private Session' : 'Fully Booked'}
           </button>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm space-y-6">
+          <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+            <div>
+              <h3 className="text-xl font-bold">Student Reviews & Feedback</h3>
+              <p className="text-xs text-zinc-500 font-semibold mt-1">
+                Read what others say or share your own experience.
+              </p>
+            </div>
+            {session && (
+              <button
+                onClick={() => setIsReviewOpen(true)}
+                className="px-4 py-2 text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-100 dark:bg-violet-950/40 hover:bg-violet-200 transition-all rounded-lg"
+              >
+                Write a Review
+              </button>
+            )}
+          </div>
+
+          {reviews.length === 0 ? (
+            <div className="text-center py-8 text-zinc-550 dark:text-zinc-500 font-semibold text-sm">
+              No reviews yet. Be the first to share your learning experience!
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {reviews.map((r) => (
+                <div key={r._id} className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-100 dark:border-zinc-800/60 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-violet-500 text-white flex items-center justify-center font-bold text-sm uppercase">
+                        {r.userName?.charAt(0) || 'S'}
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-zinc-800 dark:text-zinc-200">{r.userName}</p>
+                        <p className="text-xs text-zinc-500 font-semibold">{r.userEmail}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 bg-amber-100 dark:bg-amber-950/30 px-2 py-1 rounded-lg">
+                      <Star size={14} className="fill-amber-400 text-amber-400" />
+                      <span className="text-xs font-bold text-amber-700 dark:text-amber-400">{r.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-zinc-650 dark:text-zinc-400 font-medium leading-relaxed">
+                    {r.feedbackText}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -362,6 +523,20 @@ export default function TutorDetails() {
                   />
                 </div>
 
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="e.g. +88017XXXXXXXX"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                    required
+                  />
+                </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <p className="text-xs text-zinc-400 font-bold uppercase">
@@ -408,6 +583,102 @@ export default function TutorDetails() {
                         <span>Confirm</span>
                         <Check size={16} />
                       </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+
+        {isReviewOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsReviewOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6"
+            >
+              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-50">
+                Write a Review
+              </h3>
+
+              <form onSubmit={handleSubmitReview} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                      Name
+                    </p>
+                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                      {session?.user?.name}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                      Email
+                    </p>
+                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                      {session?.user?.email}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                    Rating (1 to 5)
+                  </label>
+                  <select
+                    value={reviewRating}
+                    onChange={e => setReviewRating(Number(e.target.value))}
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-850 dark:text-zinc-200"
+                  >
+                    <option value={5}>5 - Excellent</option>
+                    <option value={4}>4 - Very Good</option>
+                    <option value={3}>3 - Good</option>
+                    <option value={2}>2 - Fair</option>
+                    <option value={1}>1 - Poor</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                    Review / Feedback
+                  </label>
+                  <textarea
+                    rows="4"
+                    placeholder="Describe your learning experience with this tutor..."
+                    value={feedbackText}
+                    onChange={e => setFeedbackText(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-850 dark:text-zinc-200"
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                  <button
+                    type="button"
+                    onClick={() => setIsReviewOpen(false)}
+                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={reviewLoading}
+                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {reviewLoading ? (
+                      <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
+                    ) : (
+                      'Submit Review'
                     )}
                   </button>
                 </div>
