@@ -157,18 +157,18 @@ export default function TutorsPage() {
             </div>
           </div>
 
-          <div className="col-span-1 md:col-span-4 flex justify-end gap-3 pt-2">
+          <div className="col-span-1 md:col-span-4 flex flex-col sm:flex-row justify-end gap-3 pt-2 w-full">
             <button
               type="button"
               onClick={handleReset}
-              className="px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center justify-center gap-2"
             >
               <RotateCcw size={16} />
               <span>Reset</span>
             </button>
             <button
               type="submit"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-extrabold shadow-md shadow-violet-500/10 hover:shadow-violet-500/20 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-extrabold shadow-md shadow-violet-500/10 hover:shadow-violet-500/20 transition-all flex items-center justify-center gap-2"
             >
               <Search size={16} />
               <span>Search Tutors</span>

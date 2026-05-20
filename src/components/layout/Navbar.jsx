@@ -194,6 +194,23 @@ export default function Navbar() {
             className="md:hidden border-t border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
           >
             <div className="px-6 py-4 flex flex-col gap-4">
+              {session && (
+                <div className="flex items-center gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800/80">
+                  <img
+                    src={getUserImage(session.user.image, session.user.name)}
+                    alt={session.user.name || 'User'}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-violet-500"
+                  />
+                  <div className="overflow-hidden">
+                    <p className="text-sm font-bold text-zinc-900 dark:text-zinc-50 truncate">
+                      {session.user.name}
+                    </p>
+                    <p className="text-xs text-zinc-500 truncate">
+                      {session.user.email}
+                    </p>
+                  </div>
+                </div>
+              )}
               {navLinks.map(link => (
                 <Link
                   key={link.path}
@@ -208,6 +225,18 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {session && (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full text-left py-3 text-base font-semibold text-red-600 dark:text-red-400 flex items-center gap-2 transition-colors border-t border-zinc-100 dark:border-zinc-800/80 pt-4 mt-2 cursor-pointer"
+                >
+                  <LogOut size={18} />
+                  <span>Log Out</span>
+                </button>
+              )}
             </div>
           </motion.div>
         )}
