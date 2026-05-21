@@ -14,9 +14,10 @@ export default function Footer() {
         <div className="space-y-4">
           <Link
             href="/"
-            className="font-bold text-2xl tracking-wider bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent"
+            className="flex items-center gap-2.5 font-bold text-2xl tracking-wider bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent group"
           >
-            MediQueue
+            <img src="/logo.png" alt="MediQueue Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform duration-200" />
+            <span>MediQueue</span>
           </Link>
           <p className="text-sm text-foreground/60 leading-relaxed">
             Eliminating scheduling conflicts and organizing online learning
