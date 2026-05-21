@@ -225,6 +225,15 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              {!session && (
+                <Link
+                  href="/login"
+                  className="w-full text-center py-3 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white transition-all text-sm mt-2 shadow-md shadow-violet-500/10"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
               {session && (
                 <button
                   onClick={() => {

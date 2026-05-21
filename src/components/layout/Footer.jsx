@@ -9,7 +9,7 @@ import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 export default function Footer() {
   return (
     <footer className="border-t border-divider bg-zinc-50 dark:bg-zinc-950 py-12 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Site info */}
         <div className="space-y-4">
           <Link

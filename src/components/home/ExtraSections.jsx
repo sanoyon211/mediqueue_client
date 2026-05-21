@@ -45,27 +45,27 @@ export default function ExtraSections() {
   return (
     <div className="w-full bg-zinc-50 dark:bg-zinc-950/40 border-t border-zinc-100 dark:border-zinc-900 transition-colors duration-300">
 
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+      <section className="py-12 md:py-20 px-6 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16 space-y-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
             Why Learn with{' '}
             <span className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
               MediQueue?
             </span>
           </h2>
-          <p className="text-base text-zinc-600 dark:text-zinc-400 font-medium">
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-medium">
             We are dedicated to building a seamless, high-quality, and
             conflict-free online tutoring experience for students worldwide.
           </p>
         </div>
 
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {features.map((feat, index) => (
             <motion.div
               key={index}
               whileHover={{ y: -8 }}
-              className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/50 hover:border-violet-500/20 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 flex flex-col items-center text-center space-y-4"
+              className="p-5 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/50 hover:border-violet-500/20 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 flex flex-col items-center text-center space-y-4"
             >
               <div className="p-3.5 rounded-2xl bg-violet-100 dark:bg-violet-950/40">
                 {feat.icon}
@@ -82,19 +82,19 @@ export default function ExtraSections() {
       </section>
 
 
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="relative rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-100 dark:shadow-none p-10 md:p-16">
+      <section className="py-12 md:py-20 px-6 max-w-7xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-100 dark:shadow-none p-6 sm:p-10 md:p-16">
 
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-violet-500/10 blur-[120px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative z-10 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 relative z-10 text-center">
             {stats.map((stat, index) => (
-              <div key={index} className="space-y-2">
-                <h4 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              <div key={index} className="space-y-1.5">
+                <h4 className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
                   {stat.num}
                 </h4>
-                <p className="text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                <p className="text-[10px] sm:text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
                   {stat.label}
                 </p>
               </div>

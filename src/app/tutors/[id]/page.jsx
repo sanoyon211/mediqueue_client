@@ -258,8 +258,8 @@ export default function TutorDetails() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
         <button
           onClick={() => router.back()}
           className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
@@ -268,7 +268,7 @@ export default function TutorDetails() {
           <span>Back to Tutors list</span>
         </button>
 
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 md:p-10 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 md:p-10 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col items-center justify-center text-center space-y-4">
             <img
               src={getTutorImage(tutor.photo, tutor.image)}
@@ -305,9 +305,9 @@ export default function TutorDetails() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 border-t border-zinc-100 dark:border-zinc-800 pt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-t border-zinc-100 dark:border-zinc-800 pt-6">
               <div className="flex items-center gap-2">
-                <DollarSign className="text-emerald-500 w-5 h-5" />
+                <DollarSign className="text-emerald-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Price Rate
@@ -319,7 +319,7 @@ export default function TutorDetails() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Globe className="text-violet-500 w-5 h-5" />
+                <Globe className="text-violet-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Language
@@ -331,7 +331,7 @@ export default function TutorDetails() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Award className="text-indigo-500 w-5 h-5" />
+                <Award className="text-indigo-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Experience
@@ -343,7 +343,7 @@ export default function TutorDetails() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Check className="text-violet-500 w-5 h-5" />
+                <Check className="text-violet-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Teaching Mode
@@ -355,7 +355,7 @@ export default function TutorDetails() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Globe className="text-blue-500 w-5 h-5" />
+                <Globe className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Location
@@ -367,7 +367,7 @@ export default function TutorDetails() {
               </div>
 
               <div className="flex items-center gap-2">
-                <BookOpen className="text-amber-500 w-5 h-5" />
+                <BookOpen className="text-amber-500 w-5 h-5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-zinc-400 font-bold uppercase">
                     Institution
@@ -381,23 +381,23 @@ export default function TutorDetails() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-3 text-center md:text-left">
-            <div className="flex flex-col gap-2 text-zinc-700 dark:text-zinc-300 font-bold">
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-3 text-center md:text-left w-full md:w-auto">
+            <div className="flex flex-col gap-2 text-zinc-700 dark:text-zinc-300 font-bold text-xs sm:text-sm">
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <Calendar size={18} className="text-violet-500" />
+                <Calendar size={16} className="text-violet-500 flex-shrink-0" />
                 <span>
                   Start Date: {new Date(tutor.sessionStartDate).toLocaleDateString()}
                 </span>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <Clock size={18} className="text-violet-500" />
-                <span>
+                <Clock size={16} className="text-violet-500 flex-shrink-0" />
+                <span className="text-left">
                   Schedule: {tutor.availableDays || 'Sat, Sun'} ({tutor.availableTime || '10:00 AM - 12:00 PM'})
                 </span>
               </div>
             </div>
-            <div className="text-sm">
+            <div className="text-xs sm:text-sm">
               {tutor.totalSlot > 0 ? (
                 <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">
                   {tutor.totalSlot} slots left before booking closes!
@@ -413,7 +413,7 @@ export default function TutorDetails() {
           <button
             onClick={handleOpenBookingModal}
             disabled={tutor.totalSlot <= 0}
-            className={`px-8 py-3.5 rounded-xl font-extrabold text-sm transition-all duration-300 ${
+            className={`w-full md:w-auto px-8 py-3.5 rounded-xl font-extrabold text-sm transition-all duration-300 ${
               tutor.totalSlot > 0
                 ? 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg'
                 : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
@@ -424,7 +424,7 @@ export default function TutorDetails() {
         </div>
 
         {/* Reviews Section */}
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm space-y-6">
+        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 shadow-sm space-y-6">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
             <div>
               <h3 className="text-xl font-bold">Student Reviews & Feedback</h3>

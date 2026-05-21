@@ -10,7 +10,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-6 py-20 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       {/* Decorative Blur Orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-violet-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
@@ -19,7 +19,7 @@ export default function NotFound() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-xl text-center space-y-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-8 md:p-12 shadow-2xl relative z-10"
+        className="w-full max-w-xl text-center space-y-6 sm:space-y-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-5 sm:p-10 md:p-12 shadow-2xl relative z-10"
       >
         {/* Animated Icon Container */}
         <motion.div

@@ -92,16 +92,16 @@ export default function TutorsPage() {
   const currentTutors = tutors.slice(startIndex, endIndex);
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto space-y-10">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+    <div className="min-h-[calc(100vh-16rem)] py-8 md:py-12 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto space-y-8 md:space-y-10">
+        <div className="text-center max-w-2xl mx-auto space-y-2.5">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight">
             Find Your Perfect{' '}
             <span className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
               Learning Partner
             </span>
           </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium">
+          <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm font-medium">
             Search through our database of highly qualified tutors and filter
             sessions by date.
           </p>
@@ -109,7 +109,7 @@ export default function TutorsPage() {
 
         <form
           onSubmit={handleSearchSubmit}
-          className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
+          className="p-4 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
         >
           {/* Search Box */}
           <div className="space-y-1.5 col-span-1 md:col-span-2">

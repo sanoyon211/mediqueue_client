@@ -88,7 +88,7 @@ function LoginContent() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-6 py-12 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-violet-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
 
@@ -96,7 +96,7 @@ function LoginContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-8 shadow-xl relative z-10"
+        className="w-full max-w-md rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-5 sm:p-8 shadow-xl relative z-10"
       >
         <div className="text-center space-y-2 mb-8">
           <div className="inline-flex p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500 mb-2">

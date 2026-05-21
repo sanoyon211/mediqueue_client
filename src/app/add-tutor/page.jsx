@@ -110,21 +110,21 @@ export default function AddTutor() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-12 px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 md:p-10 shadow-xl"
+        className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 md:p-10 shadow-xl"
       >
-        <div className="flex items-center gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6 mb-8">
-          <div className="p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500">
-            <PlusCircle size={28} />
+        <div className="flex items-center gap-3 sm:gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-5 mb-6 sm:mb-8">
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500 flex-shrink-0">
+            <PlusCircle size={24} />
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-zinc-50">
               Register as a Tutor
             </h2>
-            <p className="text-sm text-zinc-500 font-semibold mt-1">
+            <p className="text-xs sm:text-sm text-zinc-500 font-semibold mt-0.5">
               Add your tutoring slot profile details below.
             </p>
           </div>

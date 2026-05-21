@@ -55,7 +55,7 @@ export default function HeroBanner() {
   };
 
   return (
-    <section className="relative w-full h-[550px] overflow-hidden bg-black">
+    <section className="relative w-full h-[480px] sm:h-[500px] md:h-[550px] overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -67,19 +67,19 @@ export default function HeroBanner() {
           style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
         >
 
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/70 to-transparent dark:from-zinc-950/95 dark:via-zinc-950/80 dark:to-transparent" />
+          <div className="absolute inset-0 bg-black/75 md:bg-gradient-to-r md:from-zinc-950/90 md:via-zinc-950/70 md:to-transparent" />
 
 
           <div className="absolute inset-0 max-w-7xl mx-auto px-6 flex flex-col justify-center text-white z-10">
-            <div className="max-w-2xl space-y-6">
+            <div className="max-w-2xl space-y-4 md:space-y-6">
 
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/30 text-xs font-semibold uppercase tracking-wider text-violet-300"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/30 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-violet-300 w-fit"
               >
-                <BookOpen size={14} />
+                <BookOpen size={12} />
                 <span>Premium Tutor Booking Platform</span>
               </motion.div>
 
@@ -88,7 +88,7 @@ export default function HeroBanner() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.2] md:leading-[1.15]"
               >
                 {slides[currentSlide].title}
               </motion.h1>
@@ -98,7 +98,7 @@ export default function HeroBanner() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg text-zinc-300 font-medium leading-relaxed"
+                className="text-sm sm:text-base md:text-lg text-zinc-300 font-medium leading-relaxed"
               >
                 {slides[currentSlide].description}
               </motion.p>
@@ -108,14 +108,14 @@ export default function HeroBanner() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="pt-4"
+                className="pt-2"
               >
                 <Link
                   href="/tutors"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:-translate-y-0.5 text-sm sm:text-base"
                 >
                   <span>{slides[currentSlide].cta}</span>
-                  <ArrowRight size={18} />
+                  <ArrowRight size={16} />
                 </Link>
               </motion.div>
             </div>
@@ -126,27 +126,27 @@ export default function HeroBanner() {
 
       <button
         onClick={prevSlide}
-        className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
+        className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
         aria-label="Previous Slide"
       >
         <ChevronLeft size={24} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
+        className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
         aria-label="Next Slide"
       >
         <ChevronRight size={24} />
       </button>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
               currentSlide === index
-                ? 'bg-violet-500 w-8'
+                ? 'bg-violet-500 w-6 sm:w-8'
                 : 'bg-white/40 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${index + 1}`}
