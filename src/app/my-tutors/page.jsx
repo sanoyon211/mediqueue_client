@@ -70,11 +70,8 @@ export default function MyTutors() {
       let token = localStorage.getItem('jwt_token');
       let cachedEmail = localStorage.getItem('jwt_email');
       if (!token || cachedEmail !== email) {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${apiUrl}/api/jwt`, {
+        const res = await fetch(`/api/jwt`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
         });
         const data = await res.json();
         if (data.success) {
