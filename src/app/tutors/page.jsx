@@ -92,16 +92,16 @@ export default function TutorsPage() {
   const currentTutors = tutors.slice(startIndex, endIndex);
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-8 md:py-12 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 md:py-12 px-4 sm:px-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-8 md:space-y-10">
-        <div className="text-center max-w-2xl mx-auto space-y-2.5">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tighter text-slate-900 dark:text-white">
             Find Your Perfect{' '}
-            <span className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
               Learning Partner
             </span>
           </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm font-medium">
+          <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base font-medium">
             Search through our database of highly qualified tutors and filter
             sessions by date.
           </p>
@@ -109,60 +109,60 @@ export default function TutorsPage() {
 
         <form
           onSubmit={handleSearchSubmit}
-          className="p-4 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
+          className="p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end"
         >
           {/* Search Box */}
           <div className="space-y-1.5 col-span-1 md:col-span-2">
-            <label className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Search by Tutor Name
             </label>
             <div className="relative">
               <Search
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="text"
                 placeholder="Type name (e.g. Clara, John)..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium cursor-text"
+                className="w-full pl-11 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 dark:text-white font-medium cursor-text"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Available From
             </label>
             <div className="relative">
               <Calendar
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="date"
                 value={startDate}
                 onChange={e => setStartDate(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
+                className="w-full pl-11 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 dark:text-white font-medium"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-extrabold text-zinc-500 uppercase tracking-wider">
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Available To
             </label>
             <div className="relative">
               <Calendar
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="date"
                 value={endDate}
                 onChange={e => setEndDate(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 focus:outline-none focus:border-violet-500 transition-all text-zinc-800 dark:text-zinc-200 font-medium"
+                className="w-full pl-11 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-slate-900 dark:text-white font-medium"
               />
             </div>
           </div>
@@ -171,14 +171,14 @@ export default function TutorsPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="w-full sm:w-auto px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
             >
               <RotateCcw size={16} />
               <span>Reset</span>
             </button>
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-extrabold shadow-md shadow-violet-500/10 hover:shadow-violet-500/20 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-sm transition-all flex items-center justify-center gap-2"
             >
               <Search size={16} />
               <span>Search Tutors</span>
@@ -191,30 +191,30 @@ export default function TutorsPage() {
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="h-[280px] rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 animate-pulse p-6 space-y-5"
+                className="h-[280px] rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 animate-pulse p-6 space-y-5"
               >
                 <div className="flex gap-4 items-center">
-                  <div className="w-16 h-16 rounded-full bg-zinc-200 dark:bg-zinc-800" />
+                  <div className="w-14 h-14 rounded-full bg-slate-200 dark:bg-slate-800" />
                   <div className="space-y-2 flex-1">
-                    <div className="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-3/4" />
-                    <div className="h-3 bg-zinc-200 dark:bg-zinc-800 rounded w-1/4" />
+                    <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
+                    <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4" />
                   </div>
                 </div>
-                <div className="h-6 bg-zinc-200 dark:bg-zinc-800 rounded w-1/4" />
+                <div className="h-6 bg-slate-200 dark:bg-slate-800 rounded w-1/4" />
                 <div className="space-y-2">
-                  <div className="h-3 bg-zinc-200 dark:bg-zinc-800 rounded w-full" />
-                  <div className="h-3 bg-zinc-200 dark:bg-zinc-800 rounded w-5/6" />
+                  <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+                  <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-5/6" />
                 </div>
               </div>
             ))}
           </div>
         ) : tutors.length === 0 ? (
-          <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4">
-            <div className="inline-flex p-3 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-500">
+          <div className="text-center py-20 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl max-w-xl mx-auto space-y-4">
+            <div className="inline-flex p-3 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-500">
               <ShieldAlert size={32} />
             </div>
-            <h3 className="text-xl font-bold">No Tutors Found</h3>
-            <p className="text-zinc-500 text-sm max-w-xs mx-auto">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">No Tutors Found</h3>
+            <p className="text-slate-500 text-sm max-w-xs mx-auto">
               We couldn't find any tutors matching your search criteria. Try
               resetting filters.
             </p>
@@ -226,17 +226,17 @@ export default function TutorsPage() {
                 <motion.div
                   key={tutor._id}
                   whileHover={{ y: -4 }}
-                  className="flex flex-col h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md hover:border-violet-500/30 transition-all duration-300"
+                  className="flex flex-col h-full rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-blue-500/30 transition-all duration-300 group"
                 >
                   <div className="p-6 flex-grow space-y-5">
                     <div className="flex gap-4 items-center">
                       <img
                         src={getTutorImage(tutor.photo, tutor.image)}
                         alt={tutor.tutorName || tutor.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-violet-500/20"
+                        className="w-14 h-14 rounded-full object-cover border border-slate-200 dark:border-slate-700 group-hover:border-blue-500 transition-colors"
                       />
                       <div>
-                        <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-100 line-clamp-1">
+                        <h3 className="font-bold text-lg text-slate-900 dark:text-white line-clamp-1 group-hover:text-blue-500 transition-colors">
                           {tutor.tutorName || tutor.name}
                         </h3>
                         <div className="flex items-center gap-1 mt-1">
@@ -244,41 +244,41 @@ export default function TutorsPage() {
                             size={14}
                             className="fill-amber-400 text-amber-400"
                           />
-                          <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                            {tutor.rating ? tutor.rating.toFixed(1) : '5.0'}
+                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                            {tutor.rating ? tutor.rating.toFixed(1) : '5.0'} / 5.0
                           </span>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex justify-between items-center pt-2">
-                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
+                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                         {tutor.subject}
                       </span>
-                      <span className="flex items-center text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
-                        <DollarSign size={16} className="text-emerald-500" />
+                      <span className="flex items-center text-sm font-bold text-slate-900 dark:text-white">
+                        <DollarSign size={16} className="text-blue-500 mr-0.5" />
                         <span className="text-base">
                           {tutor.hourlyFee || tutor.price}
                         </span>
-                        /hr
+                        <span className="text-slate-500 dark:text-slate-400 font-medium ml-1">/hr</span>
                       </span>
                     </div>
 
-                    <p className="text-sm text-zinc-650 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
                       {tutor.description}
                     </p>
                   </div>
 
-                  <div className="p-6 pt-0 border-t border-zinc-100 dark:border-zinc-800 mt-auto flex items-center justify-between">
+                  <div className="p-6 pt-0 border-t border-slate-100 dark:border-white/[0.05] mt-auto flex items-center justify-between">
                     <div>
                       {tutor.totalSlot > 0 ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                           {tutor.totalSlot} slots left
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-red-500">
-                          <span className="w-2 h-2 rounded-full bg-red-500" />
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                           Booked Out
                         </span>
                       )}
@@ -286,7 +286,7 @@ export default function TutorsPage() {
 
                     <Link
                       href={`/tutors/${tutor._id}`}
-                      className="px-4 py-2 font-bold text-xs bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/10 hover:bg-violet-500 hover:text-white transition-all duration-300 rounded-lg"
+                      className="px-4 py-2 font-semibold text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white transition-all duration-300 rounded-lg group-hover:bg-blue-600 group-hover:text-white"
                     >
                       View Details
                     </Link>
@@ -296,21 +296,21 @@ export default function TutorsPage() {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-4 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+              <div className="flex justify-center items-center gap-4 pt-6 border-t border-slate-200 dark:border-white/[0.05]">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer text-zinc-700 dark:text-zinc-300"
+                  className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer text-slate-700 dark:text-slate-300"
                 >
                   Previous
                 </button>
-                <span className="text-sm font-bold text-zinc-500">
+                <span className="text-sm font-semibold text-slate-500">
                   Page {currentPage} of {totalPages}
                 </span>
                 <button
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  className="px-4 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer text-zinc-700 dark:text-zinc-300"
+                  className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer text-slate-700 dark:text-slate-300"
                 >
                   Next
                 </button>

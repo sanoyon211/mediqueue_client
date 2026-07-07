@@ -233,42 +233,42 @@ export default function MyTutors() {
 
   if (isPending || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-12 h-12 rounded-full border-4 border-violet-500 animate-spin border-t-transparent" />
+      <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="w-10 h-10 rounded-full border-4 border-blue-600 animate-spin border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               My Registered Slots
             </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold mt-1">
+            <p className="text-sm text-slate-500 font-medium mt-1">
               Manage and edit your registered tutoring subjects.
             </p>
           </div>
         </div>
 
         {tutors.length === 0 ? (
-          <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4 bg-white dark:bg-zinc-900">
-            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-500">
+          <div className="text-center py-20 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl max-w-xl mx-auto space-y-4 bg-white dark:bg-slate-900/40">
+            <div className="inline-flex p-3 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600">
               <BookOpen size={32} />
             </div>
-            <h3 className="text-xl font-bold">No Tutors Registered</h3>
-            <p className="text-zinc-500 text-sm max-w-xs mx-auto">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">No Tutors Registered</h3>
+            <p className="text-slate-500 text-sm max-w-xs mx-auto">
               You haven't added any tutor slots yet. Register your first subject
               to start receiving bookings!
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+          <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 shadow-sm">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-extrabold uppercase tracking-wider text-zinc-500">
+                <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                   <th className="py-4 px-6">Name</th>
                   <th className="py-4 px-6">Subject</th>
                   <th className="py-4 px-6">Language</th>
@@ -278,56 +278,56 @@ export default function MyTutors() {
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800 text-sm text-zinc-700 dark:text-zinc-300 font-semibold">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm text-slate-700 dark:text-slate-300 font-medium">
                 {tutors.map(t => (
                   <tr
                     key={t._id}
-                    className="hover:bg-zinc-50/50 dark:hover:bg-zinc-950/30 transition-colors"
+                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors"
                   >
                     <td className="py-4 px-6 flex items-center gap-3">
                       <img
                         src={getTutorImage(t.photo, t.image)}
                         alt={t.tutorName}
-                        className="w-9 h-9 rounded-full object-cover border border-violet-500/20"
+                        className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700"
                       />
-                      <span className="text-zinc-900 dark:text-zinc-100 font-bold">
+                      <span className="text-slate-900 dark:text-white font-bold">
                         {t.tutorName}
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-500">
+                      <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs">
                         {t.subject}
                       </span>
                     </td>
                     <td className="py-4 px-6">{t.language || 'English'}</td>
-                    <td className="py-4 px-6 text-zinc-900 dark:text-zinc-100 font-bold">
+                    <td className="py-4 px-6 text-slate-900 dark:text-white font-bold">
                       ${t.hourlyFee}/hr
                     </td>
                     <td className="py-4 px-6">
                       <span
                         className={
                           t.totalSlot > 0
-                            ? 'text-emerald-600 font-bold'
-                            : 'text-red-500 font-bold'
+                            ? 'text-emerald-600 font-semibold'
+                            : 'text-red-500 font-semibold'
                         }
                       >
                         {t.totalSlot} slots
                       </span>
                     </td>
-                    <td className="py-4 px-6 text-xs text-zinc-500">
+                    <td className="py-4 px-6 text-xs text-slate-500 font-semibold">
                       {new Date(t.sessionStartDate).toLocaleDateString()}
                     </td>
                     <td className="py-4 px-6 text-center flex items-center justify-center gap-2">
                       <button
                         onClick={() => openUpdateModal(t)}
-                        className="p-2 rounded-lg text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900 transition-colors"
+                        className="p-2 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                         title="Edit Details"
                       >
                         <Edit2 size={16} />
                       </button>
                       <button
                         onClick={() => openDeleteModal(t._id)}
-                        className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-500/10 transition-colors"
+                        className="p-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                         title="Delete Slot"
                       >
                         <Trash2 size={16} />
@@ -355,22 +355,22 @@ export default function MyTutors() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 max-h-[90vh] overflow-y-auto"
+              className="w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 max-h-[90vh] overflow-y-auto"
             >
-              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
                 Update Tutor Slot
               </h3>
 
               <form onSubmit={handleUpdate} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Subject
                     </label>
                     <select
                       value={subject}
                       onChange={e => setSubject(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                     >
                       <option value="Mathematics">Mathematics</option>
                       <option value="Physics">Physics</option>
@@ -381,7 +381,7 @@ export default function MyTutors() {
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Price per Hour ($)
                     </label>
                     <input
@@ -389,7 +389,7 @@ export default function MyTutors() {
                       min="1"
                       value={price}
                       onChange={e => setPrice(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
@@ -397,19 +397,19 @@ export default function MyTutors() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Medium of Language
                     </label>
                     <input
                       type="text"
                       value={language}
                       onChange={e => setLanguage(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Experience (Years)
                     </label>
                     <input
@@ -417,7 +417,7 @@ export default function MyTutors() {
                       min="0"
                       value={experience}
                       onChange={e => setExperience(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
@@ -425,7 +425,7 @@ export default function MyTutors() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Available Slots
                     </label>
                     <input
@@ -433,19 +433,19 @@ export default function MyTutors() {
                       min="1"
                       value={totalSlot}
                       onChange={e => setTotalSlot(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Start Date
                     </label>
                     <input
                       type="date"
                       value={startDate}
                       onChange={e => setStartDate(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
@@ -453,7 +453,7 @@ export default function MyTutors() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Available Days
                     </label>
                     <input
@@ -461,12 +461,12 @@ export default function MyTutors() {
                       placeholder="e.g. Sun - Thu"
                       value={availableDays}
                       onChange={e => setAvailableDays(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Available Time Slot
                     </label>
                     <input
@@ -474,7 +474,7 @@ export default function MyTutors() {
                       placeholder="e.g. 5:00 PM - 8:00 PM"
                       value={availableTime}
                       onChange={e => setAvailableTime(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
@@ -482,37 +482,37 @@ export default function MyTutors() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Institution
                     </label>
                     <input
                       type="text"
                       value={institution}
                       onChange={e => setInstitution(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Location
                     </label>
                     <input
                       type="text"
                       value={location}
                       onChange={e => setLocation(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                       required
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-zinc-500 uppercase">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                       Teaching Mode
                     </label>
                     <select
                       value={teachingMode}
                       onChange={e => setTeachingMode(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                     >
                       <option value="Online">Online</option>
                       <option value="Offline">Offline</option>
@@ -522,30 +522,30 @@ export default function MyTutors() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Description / Bio
                   </label>
                   <textarea
                     rows="4"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                     required
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <button
                     type="button"
                     onClick={() => setIsUpdateOpen(false)}
-                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all"
+                    className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={updateLoading}
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-violet-500/25 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
                   >
                     {updateLoading ? (
                       <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
@@ -577,15 +577,15 @@ export default function MyTutors() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 text-center"
+              className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 text-center"
             >
-              <div className="inline-flex p-3 rounded-full bg-red-100 dark:bg-red-950/40 text-red-500 mb-2">
+              <div className="inline-flex p-3 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 mb-2">
                 <ShieldAlert size={32} />
               </div>
-              <h3 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 Confirm Deletion
               </h3>
-              <p className="text-zinc-500 text-sm font-semibold max-w-xs mx-auto">
+              <p className="text-slate-500 text-sm font-medium max-w-xs mx-auto">
                 Are you absolutely sure you want to delete this tutor slot? This
                 action cannot be undone.
               </p>
@@ -593,14 +593,14 @@ export default function MyTutors() {
                 <button
                   type="button"
                   onClick={() => setIsDeleteOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDelete}
                   disabled={deleteLoading}
-                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
                 >
                   {deleteLoading ? (
                     <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

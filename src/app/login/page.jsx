@@ -88,66 +88,66 @@ function LoginContent() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 relative overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-violet-500/10 blur-[120px] pointer-events-none" />
+    <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12 relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-5 sm:p-8 shadow-xl relative z-10"
+        className="w-full max-w-md rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-6 sm:p-8 shadow-xl relative z-10"
       >
         <div className="text-center space-y-2 mb-8">
-          <div className="inline-flex p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500 mb-2">
+          <div className="inline-flex p-3 rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 mb-2 border border-blue-100 dark:border-blue-800/30">
             <Sparkles size={24} />
           </div>
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-955 dark:text-zinc-50">
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Welcome Back
           </h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
             Sign in to book experienced tutors and manage slots.
           </p>
         </div>
 
         <form onSubmit={handleEmailLogin} className="space-y-5">
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
+          <div className="space-y-1.5">
+            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               Email Address
             </label>
             <div className="relative">
               <Mail
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="email"
                 placeholder="you@example.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-medium text-zinc-800 dark:text-zinc-200"
+                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                 required
               />
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <div className="flex justify-between items-center">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                 Password
               </label>
             </div>
             <div className="relative">
               <Lock
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-medium text-zinc-800 dark:text-zinc-200"
+                className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-medium text-slate-900 dark:text-white"
                 required
               />
             </div>
@@ -156,7 +156,7 @@ function LoginContent() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-sm shadow-lg shadow-violet-500/20 hover:shadow-violet-500/35 transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
+            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
@@ -169,11 +169,11 @@ function LoginContent() {
           </button>
         </form>
 
-        <div className="relative my-8 text-center">
+        <div className="relative my-6 text-center">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-zinc-200 dark:border-zinc-800" />
+            <span className="w-full border-t border-slate-200 dark:border-slate-800" />
           </div>
-          <span className="relative px-4 text-xs font-bold uppercase tracking-wider text-zinc-400 bg-white dark:bg-zinc-900">
+          <span className="relative px-4 text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/80 dark:bg-slate-900">
             Or continue with
           </span>
         </div>
@@ -181,17 +181,17 @@ function LoginContent() {
         <button
           onClick={handleGoogleLogin}
           type="button"
-          className="w-full py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center justify-center gap-3 font-semibold text-sm text-zinc-700 dark:text-zinc-200 shadow-sm"
+          className="w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all flex items-center justify-center gap-3 font-semibold text-sm text-slate-700 dark:text-slate-200 shadow-sm"
         >
           <FcGoogle size={20} />
           <span>Sign in with Google</span>
         </button>
 
-        <p className="text-center text-sm text-zinc-500 mt-8 font-medium">
+        <p className="text-center text-sm text-slate-500 mt-6 font-medium">
           Don't have an account?{' '}
           <Link
             href="/register"
-            className="text-violet-500 hover:text-violet-600 font-bold hover:underline transition-all"
+            className="text-blue-600 hover:text-blue-700 font-bold hover:underline transition-all"
           >
             Register here
           </Link>

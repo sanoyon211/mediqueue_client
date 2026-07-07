@@ -117,28 +117,28 @@ export default function AddTutor() {
 
   if (isPending || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-12 h-12 rounded-full border-4 border-violet-500 animate-spin border-t-transparent" />
+      <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="w-10 h-10 rounded-full border-4 border-blue-600 animate-spin border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 md:p-10 shadow-xl"
+        className="max-w-3xl mx-auto rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 p-5 sm:p-8 md:p-10 shadow-sm"
       >
-        <div className="flex items-center gap-3 sm:gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-5 mb-6 sm:mb-8">
-          <div className="p-2.5 sm:p-3 rounded-2xl bg-violet-100 dark:bg-violet-900/40 text-violet-500 flex-shrink-0">
+        <div className="flex items-center gap-3 sm:gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6 sm:mb-8">
+          <div className="p-2.5 sm:p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 flex-shrink-0">
             <PlusCircle size={24} />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-zinc-50">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Register as a Tutor
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-500 font-semibold mt-0.5">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
               Add your tutoring slot profile details below.
             </p>
           </div>
@@ -147,34 +147,34 @@ export default function AddTutor() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Your Name</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Your Name</label>
               <div className="relative">
                 <User
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Your Email</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Your Email</label>
               <div className="relative">
                 <Mail
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
@@ -183,16 +183,16 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Subject Category</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Subject Category</label>
               <div className="relative">
                 <BookOpen
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <select
                   value={subject}
                   onChange={e => setSubject(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white appearance-none"
                 >
                   <option value="Mathematics">Mathematics</option>
                   <option value="Physics">Physics</option>
@@ -205,11 +205,11 @@ export default function AddTutor() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Price Per Hour ($)</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Price Per Hour ($)</label>
               <div className="relative">
                 <DollarSign
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="number"
@@ -217,7 +217,7 @@ export default function AddTutor() {
                   placeholder="30"
                   value={price}
                   onChange={e => setPrice(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
@@ -226,34 +226,34 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Medium of Language</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Medium of Language</label>
               <div className="relative">
                 <Globe
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   value={language}
                   onChange={e => setLanguage(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Photo URL</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Photo URL</label>
               <div className="relative">
                 <Globe
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="url"
                   value={photoUrl}
                   onChange={e => setPhotoUrl(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
@@ -262,11 +262,11 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Experience (Years)</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Experience (Years)</label>
               <div className="relative">
                 <Clock
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="number"
@@ -274,18 +274,18 @@ export default function AddTutor() {
                   placeholder="5"
                   value={experience}
                   onChange={e => setExperience(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Total Slots</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Slots</label>
               <div className="relative">
                 <User
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="number"
@@ -293,24 +293,24 @@ export default function AddTutor() {
                   placeholder="5"
                   value={totalSlot}
                   onChange={e => setTotalSlot(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Class Start Date</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Class Start Date</label>
               <div className="relative">
                 <Calendar
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="date"
                   value={startDate}
                   onChange={e => setStartDate(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
@@ -319,36 +319,36 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Available Days (e.g. Sun - Thu)</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Available Days (e.g. Sun - Thu)</label>
               <div className="relative">
                 <Clock
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   placeholder="Sun - Thu"
                   value={availableDays}
                   onChange={e => setAvailableDays(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Available Time Slot (e.g. 5:00 PM - 8:00 PM)</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Available Time Slot</label>
               <div className="relative">
                 <Clock
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   placeholder="5:00 PM - 8:00 PM"
                   value={availableTime}
                   onChange={e => setAvailableTime(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
@@ -357,52 +357,52 @@ export default function AddTutor() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Institution</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Institution</label>
               <div className="relative">
                 <BookOpen
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   placeholder="University / School"
                   value={institution}
                   onChange={e => setInstitution(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Location (Area/City)</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Location (Area/City)</label>
               <div className="relative">
                 <Globe
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
                   placeholder="Dhanmondi, Dhaka"
                   value={location}
                   onChange={e => setLocation(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-bold">Teaching Mode</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Teaching Mode</label>
               <div className="relative">
                 <User
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <select
                   value={teachingMode}
                   onChange={e => setTeachingMode(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white appearance-none"
                 >
                   <option value="Online">Online</option>
                   <option value="Offline">Offline</option>
@@ -413,12 +413,12 @@ export default function AddTutor() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-bold">Description / Bio</label>
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Description / Bio</label>
             <textarea
               rows="4"
               value={description}
               onChange={e => setDescription(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 text-sm font-semibold"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-semibold text-slate-900 dark:text-white"
               required
             />
           </div>
@@ -426,7 +426,7 @@ export default function AddTutor() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2"
+            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-white animate-spin border-t-transparent rounded-full" />

@@ -255,28 +255,28 @@ export default function TutorDetails() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           <ArrowLeft size={16} />
           <span>Back to Tutors list</span>
         </button>
 
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 md:p-10 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 p-5 sm:p-8 md:p-10 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col items-center justify-center text-center space-y-4">
             <img
               src={getTutorImage(tutor.photo, tutor.image)}
               alt={tutor.tutorName}
-              className="w-36 h-36 rounded-full object-cover border-4 border-violet-500/20 shadow-md"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-slate-100 dark:border-slate-800 shadow-md"
             />
             <div>
-              <h2 className="text-2xl font-extrabold text-zinc-800 dark:text-zinc-100">
+              <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
                 {tutor.tutorName}
               </h2>
-              <p className="text-sm font-semibold text-zinc-500 mt-1">
+              <p className="text-sm font-semibold text-slate-500 mt-1">
                 {tutor.creatorEmail}
               </p>
             </div>
@@ -285,10 +285,10 @@ export default function TutorDetails() {
           <div className="md:col-span-2 space-y-6 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                   {tutor.subject}
                 </span>
-                <span className="flex items-center gap-1 text-xs font-extrabold text-zinc-500">
+                <span className="flex items-center gap-1 text-xs font-semibold text-slate-500">
                   <Star size={14} className="fill-amber-400 text-amber-400" />
                   <span>
                     {tutor.rating ? tutor.rating.toFixed(1) : '5.0'} / 5.0
@@ -296,56 +296,56 @@ export default function TutorDetails() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold">About the Tutor</h3>
-              <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed font-medium">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">About the Tutor</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">
                 {tutor.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-t border-zinc-100 dark:border-zinc-800 pt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-t border-slate-200 dark:border-slate-800 pt-6">
               <div className="flex items-center gap-2">
-                <DollarSign className="text-emerald-500 w-5 h-5 flex-shrink-0" />
+                <DollarSign className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Price Rate
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
                     ${tutor.hourlyFee}/hour
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Globe className="text-violet-500 w-5 h-5 flex-shrink-0" />
+                <Globe className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Language
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
                     {tutor.language || 'English'}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Award className="text-indigo-500 w-5 h-5 flex-shrink-0" />
+                <Award className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Experience
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
                     {tutor.experience} Years
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Check className="text-violet-500 w-5 h-5 flex-shrink-0" />
+                <Check className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Teaching Mode
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">
                     {tutor.teachingMode || 'Online'}
                   </p>
                 </div>
@@ -354,22 +354,22 @@ export default function TutorDetails() {
               <div className="flex items-center gap-2">
                 <Globe className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Location
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200 truncate max-w-[150px]" title={tutor.location}>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px]" title={tutor.location}>
                     {tutor.location || 'Online'}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <BookOpen className="text-amber-500 w-5 h-5 flex-shrink-0" />
+                <BookOpen className="text-blue-500 w-5 h-5 flex-shrink-0" />
                 <div>
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
                     Institution
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200 truncate max-w-[150px]" title={tutor.institution}>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px]" title={tutor.institution}>
                     {tutor.institution || 'Self-Employed'}
                   </p>
                 </div>
@@ -378,17 +378,17 @@ export default function TutorDetails() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 p-5 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-3 text-center md:text-left w-full md:w-auto">
-            <div className="flex flex-col gap-2 text-zinc-700 dark:text-zinc-300 font-bold text-xs sm:text-sm">
+            <div className="flex flex-col gap-2 text-slate-700 dark:text-slate-300 font-semibold text-xs sm:text-sm">
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <Calendar size={16} className="text-violet-500 flex-shrink-0" />
+                <Calendar size={16} className="text-blue-500 flex-shrink-0" />
                 <span>
                   Start Date: {new Date(tutor.sessionStartDate).toLocaleDateString()}
                 </span>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2">
-                <Clock size={16} className="text-violet-500 flex-shrink-0" />
+                <Clock size={16} className="text-blue-500 flex-shrink-0" />
                 <span className="text-left">
                   Schedule: {tutor.availableDays || 'Sat, Sun'} ({tutor.availableTime || '10:00 AM - 12:00 PM'})
                 </span>
@@ -396,11 +396,11 @@ export default function TutorDetails() {
             </div>
             <div className="text-xs sm:text-sm">
               {tutor.totalSlot > 0 ? (
-                <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
                   {tutor.totalSlot} slots left before booking closes!
                 </span>
               ) : (
-                <span className="text-red-500 font-extrabold">
+                <span className="text-red-500 font-bold">
                   This session is fully booked. You can’t join at the moment.
                 </span>
               )}
@@ -410,10 +410,10 @@ export default function TutorDetails() {
           <button
             onClick={handleOpenBookingModal}
             disabled={tutor.totalSlot <= 0}
-            className={`w-full md:w-auto px-8 py-3.5 rounded-xl font-extrabold text-sm transition-all duration-300 ${
+            className={`w-full md:w-auto px-8 py-3 rounded-xl font-bold text-sm transition-all duration-300 ${
               tutor.totalSlot > 0
-                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg'
-                : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
+                : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
             }`}
           >
             {tutor.totalSlot > 0 ? 'Book a Private Session' : 'Fully Booked'}
@@ -421,18 +421,18 @@ export default function TutorDetails() {
         </div>
 
         {/* Reviews Section */}
-        <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 sm:p-8 shadow-sm space-y-6">
-          <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 p-5 sm:p-8 shadow-sm space-y-6">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
-              <h3 className="text-xl font-bold">Student Reviews & Feedback</h3>
-              <p className="text-xs text-zinc-500 font-semibold mt-1">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Student Reviews & Feedback</h3>
+              <p className="text-xs text-slate-500 font-semibold mt-1">
                 Read what others say or share your own experience.
               </p>
             </div>
             {session && (
               <button
                 onClick={() => setIsReviewOpen(true)}
-                className="px-4 py-2 text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-100 dark:bg-violet-950/40 hover:bg-violet-200 transition-all rounded-lg"
+                className="px-4 py-2 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all rounded-lg"
               >
                 Write a Review
               </button>
@@ -440,29 +440,29 @@ export default function TutorDetails() {
           </div>
 
           {reviews.length === 0 ? (
-            <div className="text-center py-8 text-zinc-550 dark:text-zinc-500 font-semibold text-sm">
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400 font-medium text-sm">
               No reviews yet. Be the first to share your learning experience!
             </div>
           ) : (
             <div className="space-y-4">
               {reviews.map((r) => (
-                <div key={r._id} className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-100 dark:border-zinc-800/60 space-y-2">
+                <div key={r._id} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-violet-500 text-white flex items-center justify-center font-bold text-sm uppercase">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 flex items-center justify-center font-bold text-sm uppercase">
                         {r.userName?.charAt(0) || 'S'}
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-zinc-800 dark:text-zinc-200">{r.userName}</p>
-                        <p className="text-xs text-zinc-500 font-semibold">{r.userEmail}</p>
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">{r.userName}</p>
+                        <p className="text-xs text-slate-500 font-medium">{r.userEmail}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 bg-amber-100 dark:bg-amber-950/30 px-2 py-1 rounded-lg">
+                    <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-lg">
                       <Star size={14} className="fill-amber-400 text-amber-400" />
                       <span className="text-xs font-bold text-amber-700 dark:text-amber-400">{r.rating.toFixed(1)}</span>
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-650 dark:text-zinc-400 font-medium leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
                     {r.feedbackText}
                   </p>
                 </div>
@@ -487,27 +487,27 @@ export default function TutorDetails() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6"
+              className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6"
             >
-              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
                 Confirm Booking
               </h3>
 
               <form onSubmit={handleConfirmBooking} className="space-y-4">
-                <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl space-y-1">
-                  <p className="text-xs text-zinc-400 font-bold uppercase">
+                <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl space-y-1">
+                  <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
                     Booking with
                   </p>
-                  <p className="text-sm font-extrabold text-zinc-800 dark:text-zinc-200">
+                  <p className="text-sm font-extrabold text-slate-900 dark:text-white">
                     {tutor.tutorName}
                   </p>
-                  <p className="text-xs font-semibold text-violet-500">
+                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
                     {tutor.subject} ({tutor.language || 'English'})
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Select Target Date
                   </label>
                   <input
@@ -515,13 +515,13 @@ export default function TutorDetails() {
                     min={tutor.sessionStartDate}
                     value={bookingDate}
                     onChange={e => setBookingDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-semibold text-slate-900 dark:text-white"
                     required
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Phone Number
                   </label>
                   <input
@@ -529,33 +529,33 @@ export default function TutorDetails() {
                     placeholder="e.g. +88017XXXXXXXX"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-800 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-semibold text-slate-900 dark:text-white"
                     required
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
                       Student Name
                     </p>
-                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
                       {session?.user?.name}
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
                       Student Email
                     </p>
-                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
                       {session?.user?.email}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center border-t border-zinc-100 dark:border-zinc-800 pt-4 text-sm font-extrabold">
-                  <span className="text-zinc-500">Hourly Rate:</span>
-                  <span className="text-zinc-800 dark:text-zinc-200">
+                <div className="flex justify-between items-center border-t border-slate-100 dark:border-slate-800 pt-4 text-sm font-extrabold">
+                  <span className="text-slate-500">Hourly Rate:</span>
+                  <span className="text-slate-900 dark:text-white">
                     ${tutor.hourlyFee} / hr
                   </span>
                 </div>
@@ -564,14 +564,14 @@ export default function TutorDetails() {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={bookingLoading}
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-[0_0_20px_rgba(37,99,235,0.2)] flex items-center justify-center gap-2"
                   >
                     {bookingLoading ? (
                       <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
@@ -602,40 +602,40 @@ export default function TutorDetails() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6"
+              className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6"
             >
-              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white">
                 Write a Review
               </h3>
 
               <form onSubmit={handleSubmitReview} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
                       Name
                     </p>
-                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
                       {session?.user?.name}
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xs text-zinc-400 font-bold uppercase">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
                       Email
                     </p>
-                    <p className="text-xs font-bold text-zinc-700 dark:text-zinc-300 truncate">
+                    <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate">
                       {session?.user?.email}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Rating (1 to 5)
                   </label>
                   <select
                     value={reviewRating}
                     onChange={e => setReviewRating(Number(e.target.value))}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-850 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-semibold text-slate-900 dark:text-white"
                   >
                     <option value={5}>5 - Excellent</option>
                     <option value={4}>4 - Very Good</option>
@@ -646,7 +646,7 @@ export default function TutorDetails() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-zinc-500 uppercase">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Review / Feedback
                   </label>
                   <textarea
@@ -654,23 +654,23 @@ export default function TutorDetails() {
                     placeholder="Describe your learning experience with this tutor..."
                     value={feedbackText}
                     onChange={e => setFeedbackText(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-950/50 hover:border-violet-500/30 focus:border-violet-500 focus:outline-none text-sm transition-all font-semibold text-zinc-850 dark:text-zinc-200"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/50 hover:border-blue-500/30 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none text-sm transition-all font-semibold text-slate-900 dark:text-white"
                     required
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                   <button
                     type="button"
                     onClick={() => setIsReviewOpen(false)}
-                    className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 dark:text-zinc-400 text-sm font-bold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={reviewLoading}
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                    className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-[0_0_20px_rgba(37,99,235,0.2)] flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {reviewLoading ? (
                       <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />

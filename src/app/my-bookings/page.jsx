@@ -142,40 +142,40 @@ export default function MyBookings() {
 
   if (isPending || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-12 h-12 rounded-full border-4 border-violet-500 animate-spin border-t-transparent" />
+      <div className="min-h-[calc(100vh-16rem)] flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="w-10 h-10 rounded-full border-4 border-blue-600 animate-spin border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-[calc(100vh-16rem)] py-8 px-4 sm:px-6 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             My Booked Sessions
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 font-semibold mt-1">
+          <p className="text-sm text-slate-500 font-medium mt-1">
             Review dates and manage status of booked study sessions.
           </p>
         </div>
 
         {bookings.length === 0 ? (
-          <div className="text-center py-20 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-4 bg-white dark:bg-zinc-900">
-            <div className="inline-flex p-3 rounded-full bg-violet-100 dark:bg-violet-950/40 text-violet-500">
+          <div className="text-center py-20 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl max-w-xl mx-auto space-y-4 bg-white dark:bg-slate-900/40">
+            <div className="inline-flex p-3 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600">
               <Calendar size={32} />
             </div>
-            <h3 className="text-xl font-bold">No Bookings Found</h3>
-            <p className="text-zinc-500 text-sm max-w-xs mx-auto">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">No Bookings Found</h3>
+            <p className="text-slate-500 text-sm max-w-xs mx-auto">
               You have not booked any slots yet. Head to the Tutors page to
               reserve your first study session!
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+          <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-slate-900/40 shadow-sm">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-xs font-extrabold uppercase tracking-wider text-zinc-500">
+                <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                   <th className="py-4 px-6">Tutor Name</th>
                   <th className="py-4 px-6">Subject</th>
                   <th className="py-4 px-6">Class Date</th>
@@ -184,42 +184,41 @@ export default function MyBookings() {
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800 text-sm text-zinc-700 dark:text-zinc-300 font-semibold">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm text-slate-700 dark:text-slate-300 font-medium">
                 {bookings.map(b => (
                   <tr
                     key={b._id}
-                    className="hover:bg-zinc-50/50 dark:hover:bg-zinc-950/30 transition-colors"
+                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors"
                   >
                     <td className="py-4 px-6 flex items-center gap-3">
                       <img
                         src={getTutorImage(b.tutorPhoto, b.image)}
                         alt={b.tutorName}
-                        className="w-9 h-9 rounded-full object-cover border border-violet-500/20"
+                        className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-slate-700"
                       />
-                      <span className="text-zinc-900 dark:text-zinc-100 font-bold">
+                      <span className="text-slate-900 dark:text-white font-bold">
                         {b.tutorName}
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="px-2.5 py-1 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400">
+                      <span className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold text-xs">
                         {b.subject}
                       </span>
                     </td>
-                    <td className="py-4 px-6 text-zinc-500">
-                      
+                    <td className="py-4 px-6 text-slate-500 font-medium">
                       {new Date(
                         b.bookingDate || b.bookedAt,
                       ).toLocaleDateString()}
                     </td>
-                    <td className="py-4 px-6 text-zinc-900 dark:text-zinc-100 font-bold">
+                    <td className="py-4 px-6 text-slate-900 dark:text-white font-bold">
                       ${b.hourlyFee}
                     </td>
                     <td className="py-4 px-6 text-center">
                       <span
-                        className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${
+                        className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                           b.bookStatus === 'cancelled'
-                            ? 'bg-red-100 dark:bg-red-950/40 text-red-500'
-                            : 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400'
+                            ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                            : 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400'
                         }`}
                       >
                         {b.bookStatus || 'booked'}
@@ -229,12 +228,12 @@ export default function MyBookings() {
                       {b.bookStatus !== 'cancelled' ? (
                         <button
                           onClick={() => openCancelModal(b._id)}
-                          className="px-3.5 py-1.5 font-bold text-xs bg-red-500/10 hover:bg-red-600 hover:text-white border border-red-500/10 text-red-600 dark:text-red-400 transition-all rounded-lg"
+                          className="px-3.5 py-1.5 font-semibold text-xs bg-white dark:bg-slate-800 hover:bg-red-50 hover:dark:bg-red-900/20 border border-slate-200 dark:border-slate-700 text-red-600 dark:text-red-400 hover:border-red-200 dark:hover:border-red-900/50 transition-all rounded-lg shadow-sm"
                         >
                           Cancel Booking
                         </button>
                       ) : (
-                        <span className="text-zinc-400 dark:text-zinc-600 text-xs font-bold">
+                        <span className="text-slate-400 dark:text-slate-500 text-xs font-semibold">
                           No Action
                         </span>
                       )}
@@ -261,15 +260,15 @@ export default function MyBookings() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 text-center"
+              className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative z-10 space-y-6 text-center"
             >
-              <div className="inline-flex p-3 rounded-full bg-red-100 dark:bg-red-950/40 text-red-500 mb-2">
+              <div className="inline-flex p-3 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 mb-2">
                 <ShieldAlert size={32} />
               </div>
-              <h3 className="text-xl font-extrabold text-zinc-900 dark:text-zinc-50">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 Cancel Session
               </h3>
-              <p className="text-zinc-500 text-sm font-semibold max-w-xs mx-auto">
+              <p className="text-slate-500 text-sm font-medium max-w-xs mx-auto">
                 Are you sure you want to cancel this study session? This will
                 release the slot to other students.
               </p>
@@ -277,14 +276,14 @@ export default function MyBookings() {
                 <button
                   type="button"
                   onClick={() => setIsCancelOpen(false)}
-                  className="flex-1 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-650 text-sm font-bold hover:bg-zinc-100 transition-all"
+                  className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                 >
                   No, Keep it
                 </button>
                 <button
                   onClick={handleCancelBooking}
                   disabled={cancelLoading}
-                  className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm shadow-lg shadow-red-500/20 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2"
                 >
                   {cancelLoading ? (
                     <div className="w-5 h-5 rounded-full border-2 border-white animate-spin border-t-transparent" />
