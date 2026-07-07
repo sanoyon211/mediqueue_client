@@ -80,10 +80,24 @@ export default function AddTutor() {
 
     try {
       setLoading(true);
+      let token = localStorage.getItem('jwt_token');
+      if (!token || localStorage.getItem('jwt_email') !== session.user.email) {
+        const jwtRes = await fetch('/api/jwt', { method: 'POST' });
+        const jwtData = await jwtRes.json();
+        if (jwtData.success) {
+          token = jwtData.token;
+          localStorage.setItem('jwt_token', token);
+          localStorage.setItem('jwt_email', session.user.email);
+        }
+      }
+
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
       const res = await fetch(`${apiUrl}/api/tutors`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(tutorData),
       });
       const data = await res.json();
