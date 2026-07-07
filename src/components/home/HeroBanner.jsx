@@ -1,158 +1,99 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, BookOpen, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-
-const slides = [
-  {
-    id: 1,
-    title: 'Unlock Your Potential with Personalized Tutoring',
-    description:
-      'Connect with certified, highly experienced tutors who cater directly to your unique learning style and academic goals.',
-    image:
-      'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80',
-    cta: 'Explore Tutors',
-  },
-  {
-    id: 2,
-    title: 'Master Complex Subjects Easily & Seamlessly',
-    description:
-      'From high school mathematics to advanced computer science and programming, find the perfect guide to help you excel.',
-    image:
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
-    cta: 'Browse Categories',
-  },
-  {
-    id: 3,
-    title: 'Learn from Anywhere, Anytime with No Conflicts',
-    description:
-      'Schedule online/offline sessions dynamically that fit perfectly into your busy life. Prevent time-slot conflicts with our advanced booking system.',
-    image:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
-    cta: 'Book a Session',
-  },
-];
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HeroBanner() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide(prev => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(prev => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
-
   return (
-    <section className="relative w-full h-[480px] sm:h-[500px] md:h-[550px] overflow-hidden bg-black">
-      <AnimatePresence mode="wait">
+    <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 pt-20">
+      {/* Abstract Glowing Backgrounds */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/20 dark:bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 dark:bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+      
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center space-y-8">
+        
+        {/* Pill Badge */}
         <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-sm"
         >
+          <Sparkles size={14} className="text-blue-500" />
+          <span>The New Standard in Online Tutoring</span>
+        </motion.div>
 
-          <div className="absolute inset-0 bg-black/60 md:bg-gradient-to-r md:from-black/90 md:via-zinc-950/60 md:to-transparent mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] md:leading-[1.05]"
+        >
+          <span className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent">
+            Unlock your potential with 
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+            world-class educators
+          </span>
+        </motion.h1>
 
+        {/* Sub-headline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed"
+        >
+          Connect with certified, highly experienced tutors. Master complex subjects seamlessly with our conflict-free scheduling and personalized learning platform.
+        </motion.p>
 
-          <div className="absolute inset-0 max-w-7xl mx-auto px-6 flex flex-col justify-center text-white z-10">
-            <div className="max-w-2xl space-y-4 md:space-y-6">
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-center gap-4 pt-4"
+        >
+          <Link
+            href="/tutors"
+            className="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
+          >
+            <span>Explore Tutors</span>
+            <ArrowRight size={18} />
+          </Link>
+          <Link
+            href="/register"
+            className="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto rounded-xl font-bold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 shadow-sm"
+          >
+            <span>Become a Student</span>
+          </Link>
+        </motion.div>
 
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/30 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-violet-300 w-fit"
-              >
-                <BookOpen size={12} />
-                <span>Premium Tutor Booking Platform</span>
-              </motion.div>
-
-
-              <motion.h1
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.2] md:leading-[1.15]"
-              >
-                {slides[currentSlide].title}
-              </motion.h1>
-
-
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="text-sm sm:text-base md:text-lg text-zinc-300 font-medium leading-relaxed"
-              >
-                {slides[currentSlide].description}
-              </motion.p>
-
-
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="pt-2"
-              >
-                <Link
-                  href="/tutors"
-                  className="inline-flex items-center gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-2xl font-bold bg-white text-zinc-900 hover:bg-zinc-100 hover:scale-105 transition-all duration-300 shadow-xl shadow-white/10 text-sm sm:text-base"
-                >
-                  <span>{slides[currentSlide].cta}</span>
-                  <ArrowRight size={16} />
-                </Link>
-              </motion.div>
-            </div>
+        {/* Social Proof / Stats */}
+        <motion.div
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ duration: 0.7, delay: 0.6 }}
+           className="pt-16 md:pt-24 flex items-center justify-center gap-8 text-sm font-semibold text-slate-500 dark:text-slate-400"
+        >
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">15k+</span>
+            <span>Active Students</span>
+          </div>
+          <div className="h-10 w-px bg-slate-200 dark:bg-slate-800" />
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">4.9/5</span>
+            <span>Average Rating</span>
           </div>
         </motion.div>
-      </AnimatePresence>
 
-
-      <button
-        onClick={prevSlide}
-        className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
-        aria-label="Previous Slide"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-zinc-900/40 hover:bg-violet-600/70 text-white backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all z-20"
-        aria-label="Next Slide"
-      >
-        <ChevronRight size={24} />
-      </button>
-
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-              currentSlide === index
-                ? 'bg-violet-500 w-6 sm:w-8'
-                : 'bg-white/40 hover:bg-white/70'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   );

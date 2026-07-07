@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="w-full">
       <HeroBanner />
-      <section className="py-12 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto transition-colors duration-300">
+      <section className="py-20 md:py-32 px-4 sm:px-6 max-w-7xl mx-auto transition-colors duration-300">
         <FeaturedTutorsHeader />
         <Suspense fallback={<FeaturedTutorsSkeleton />}>
           <FeaturedTutorsList />

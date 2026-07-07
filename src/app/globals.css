@@ -4,6 +4,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background-light: #f8fafc;
-  --color-background-dark: #09090b;
+  --color-background-light: #ffffff;
+  --color-background-dark: #020617; /* slate-950 for that deep tech look */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
 }

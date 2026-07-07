@@ -69,15 +69,17 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/50 dark:border-zinc-800/50 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-xl transition-colors duration-300 shadow-sm shadow-zinc-200/20 dark:shadow-none">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/50 dark:border-white/[0.08] bg-white/70 dark:bg-slate-950/70 backdrop-blur-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <div className="flex items-center">
           <Link
             href="/"
-            className="flex items-center gap-2.5 font-bold text-2xl tracking-wider bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent group"
+            className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 dark:text-white group"
           >
-            <img src="/logo.png" alt="MediQueue Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform duration-200" />
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/20 group-hover:scale-105 transition-transform duration-200">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
             <span>MediQueue</span>
           </Link>
         </div>
@@ -88,10 +90,10 @@ export default function Navbar() {
             <Link
               key={link.path}
               href={link.path}
-              className={`text-sm font-semibold transition-all duration-200 ${
+              className={`text-sm font-medium transition-all duration-200 ${
                 isActive(link.path)
-                  ? 'text-violet-600 dark:text-violet-400 font-bold'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {link.name}
@@ -104,7 +106,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors"
+            className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400 transition-colors"
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (
@@ -170,9 +172,9 @@ export default function Navbar() {
 
             <Link
               href="/login"
-              className="px-5 py-2.5 text-sm font-bold rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20 hover:bg-violet-500 hover:text-white transition-all duration-300 shadow-sm shadow-violet-500/5 hover:shadow-violet-500/15 hover:-translate-y-0.5"
+              className="px-5 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)]"
             >
-              Login
+              Log in
             </Link>
           )}
 
@@ -229,10 +231,10 @@ export default function Navbar() {
               {!session && (
                 <Link
                   href="/login"
-                  className="w-full text-center py-3 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white transition-all text-sm mt-2 shadow-md shadow-violet-500/10"
+                  className="w-full text-center py-3 rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white transition-all text-sm mt-2 shadow-lg shadow-blue-600/20"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Login
+                  Log in
                 </Link>
               )}
               {session && (
