@@ -4,6 +4,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background-light: #ffffff;
-  --color-background-dark: #0a0a0a;
+  --color-background-light: #f8fafc;
+  --color-background-dark: #09090b;
 }

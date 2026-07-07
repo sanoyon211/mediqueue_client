@@ -65,9 +65,9 @@ export default function ExtraSections() {
             <motion.div
               key={index}
               whileHover={{ y: -8 }}
-              className="p-5 sm:p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/50 hover:border-violet-500/20 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 flex flex-col items-center text-center space-y-4"
+              className="p-5 sm:p-8 rounded-3xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] dark:hover:shadow-none hover:border-violet-500/20 transition-all duration-500 flex flex-col items-center text-center space-y-4 group"
             >
-              <div className="p-3.5 rounded-2xl bg-violet-100 dark:bg-violet-950/40">
+              <div className="p-3.5 rounded-2xl bg-violet-100 dark:bg-violet-950/40 group-hover:scale-110 transition-transform duration-300">
                 {feat.icon}
               </div>
               <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-100">

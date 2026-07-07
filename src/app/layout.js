@@ -1,11 +1,11 @@
-import { Inter } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata = {
   title: 'MediQueue - Tutor Booking System',
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} min-h-screen bg-background text-foreground transition-colors duration-350`}
+        className={`${outfit.variable} font-sans antialiased min-h-screen bg-background text-foreground transition-colors duration-350`}
       >
         <Providers>
           <div className="relative flex flex-col min-h-screen">

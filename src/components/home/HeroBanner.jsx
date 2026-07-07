@@ -67,7 +67,8 @@ export default function HeroBanner() {
           style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
         >
 
-          <div className="absolute inset-0 bg-black/75 md:bg-gradient-to-r md:from-zinc-950/90 md:via-zinc-950/70 md:to-transparent" />
+          <div className="absolute inset-0 bg-black/60 md:bg-gradient-to-r md:from-black/90 md:via-zinc-950/60 md:to-transparent mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
 
 
           <div className="absolute inset-0 max-w-7xl mx-auto px-6 flex flex-col justify-center text-white z-10">
@@ -112,7 +113,7 @@ export default function HeroBanner() {
               >
                 <Link
                   href="/tutors"
-                  className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:-translate-y-0.5 text-sm sm:text-base"
+                  className="inline-flex items-center gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-2xl font-bold bg-white text-zinc-900 hover:bg-zinc-100 hover:scale-105 transition-all duration-300 shadow-xl shadow-white/10 text-sm sm:text-base"
                 >
                   <span>{slides[currentSlide].cta}</span>
                   <ArrowRight size={16} />

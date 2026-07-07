@@ -69,8 +69,8 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-md transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/50 dark:border-zinc-800/50 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-xl transition-colors duration-300 shadow-sm shadow-zinc-200/20 dark:shadow-none">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <div className="flex items-center">
           <Link

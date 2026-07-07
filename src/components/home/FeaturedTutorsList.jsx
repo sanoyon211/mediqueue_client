@@ -69,7 +69,7 @@ export default async function FeaturedTutorsList() {
         {tutors.map(tutor => (
           <div
             key={tutor._id}
-            className="flex flex-col h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md hover:border-violet-500/30 transition-all duration-300 group"
+            className="flex flex-col h-full rounded-3xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/50 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 hover:border-violet-500/30 transition-all duration-500 group"
           >
 
             <div className="p-6 flex-grow space-y-5">
@@ -144,7 +144,7 @@ export default async function FeaturedTutorsList() {
       <div className="text-center mt-16">
         <Link
           href="/tutors"
-          className="inline-flex items-center gap-2 px-8 py-3.5 font-extrabold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-violet-500/20 hover:shadow-violet-500/35 hover:-translate-y-0.5 transition-all duration-300 rounded-xl"
+          className="inline-flex items-center gap-3 px-9 py-4 font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:scale-105 shadow-xl shadow-zinc-900/20 dark:shadow-white/10 transition-all duration-300 rounded-2xl"
         >
           <span>See All Tutors</span>
           <ArrowRight size={18} />
